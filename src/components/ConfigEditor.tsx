@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Field, Input, SecretInput, Select } from '@grafana/ui';
 import {
   DataSourcePluginOptionsEditorProps,
@@ -25,8 +25,6 @@ export function ConfigEditor(props: Props) {
   const onResetPassword = () => {
     updateDatasourcePluginResetOption(props, 'password');
   };
-
-  useEffect(() => console.log('options', options), [options]);
 
   return (
     <>
