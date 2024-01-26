@@ -10,9 +10,6 @@ Yugabyte datasource plugin for grafana
 
 **BEFORE YOU BEGIN**
 - Ensure all links are absolute URLs so that they will work when the README is displayed within Grafana and Grafana.com
-- Be inspired ✨
-  - [grafana-polystat-panel](https://github.com/grafana/grafana-polystat-panel)
-  - [volkovlabs-variable-panel](https://github.com/volkovlabs/volkovlabs-variable-panel)
 
 **ADD SOME BADGES**
 
