@@ -1,67 +1,87 @@
-import React, { ChangeEvent } from 'react';
-import { InlineField, Input, SecretInput } from '@grafana/ui';
-import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { MyDataSourceOptions, MySecureJsonData } from '../types';
+import React, { SyntheticEvent } from 'react';
+import { Field, Input, SecretInput, Select } from '@grafana/ui';
+import {
+  DataSourcePluginOptionsEditorProps,
+  onUpdateDatasourceJsonDataOption,
+  onUpdateDatasourceSecureJsonDataOption,
+  updateDatasourcePluginResetOption,
+} from '@grafana/data';
+import { YugabyteOptions } from '../types';
+import { ConfigSection, DataSourceDescription } from '@grafana/experimental';
 
-interface Props extends DataSourcePluginOptionsEditorProps<MyDataSourceOptions> {}
+interface Props extends DataSourcePluginOptionsEditorProps<YugabyteOptions> {}
 
 export function ConfigEditor(props: Props) {
   const { onOptionsChange, options } = props;
-  const onPathChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const jsonData = {
-      ...options.jsonData,
-      path: event.target.value,
+  const ELEMENT_WIDTH = 40;
+
+  // BUG: when delete "url" value and save, it will reset to the previous value??
+  const onDSOptionChanged = (property: keyof YugabyteOptions) => {
+    return (event: SyntheticEvent<HTMLInputElement>) => {
+      onOptionsChange({ ...options, ...{ [property]: event.currentTarget.value } });
     };
-    onOptionsChange({ ...options, jsonData });
   };
 
-  // Secure field (only sent to the backend)
-  const onAPIKeyChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onOptionsChange({
-      ...options,
-      secureJsonData: {
-        apiKey: event.target.value,
-      },
-    });
+  const onResetPassword = () => {
+    updateDatasourcePluginResetOption(props, 'password');
   };
-
-  const onResetAPIKey = () => {
-    onOptionsChange({
-      ...options,
-      secureJsonFields: {
-        ...options.secureJsonFields,
-        apiKey: false,
-      },
-      secureJsonData: {
-        ...options.secureJsonData,
-        apiKey: '',
-      },
-    });
-  };
-
-  const { jsonData, secureJsonFields } = options;
-  const secureJsonData = (options.secureJsonData || {}) as MySecureJsonData;
 
   return (
-    <div className="gf-form-group">
-      <InlineField label="Path" labelWidth={12}>
-        <Input
-          onChange={onPathChange}
-          value={jsonData.path || ''}
-          placeholder="json field returned to frontend"
-          width={40}
-        />
-      </InlineField>
-      <InlineField label="API Key" labelWidth={12}>
-        <SecretInput
-          isConfigured={(secureJsonFields && secureJsonFields.apiKey) as boolean}
-          value={secureJsonData.apiKey || ''}
-          placeholder="secure json field (backend only)"
-          width={40}
-          onReset={onResetAPIKey}
-          onChange={onAPIKeyChange}
-        />
-      </InlineField>
-    </div>
+    <>
+      <DataSourceDescription
+        dataSourceName="Yugabyte"
+        docsLink="https://grafana.com/docs/grafana/latest/datasources/yugabyte/"
+        hasRequiredFields={true}
+      />
+
+      <hr />
+
+      <ConfigSection title="Connection">
+        <Field label="Host URL" required>
+          <Input
+            width={ELEMENT_WIDTH}
+            placeholder="localhost:5433"
+            value={options.url || ''}
+            onChange={onDSOptionChanged('url')}
+          />
+        </Field>
+
+        <Field label="Database" required>
+          <Input
+            width={ELEMENT_WIDTH}
+            placeholder="yb_demo"
+            value={options.jsonData.database || ''}
+            onChange={onUpdateDatasourceJsonDataOption(props, 'database')}
+          />
+        </Field>
+      </ConfigSection>
+
+      <hr />
+
+      <ConfigSection title="Authentication">
+        <Field label="Username" required>
+          <Input
+            width={ELEMENT_WIDTH}
+            placeholder="yugabyte"
+            value={options.user || ''}
+            onChange={onDSOptionChanged('user')}
+          />
+        </Field>
+
+        <Field label="Password">
+          <SecretInput
+            width={ELEMENT_WIDTH}
+            placeholder="********"
+            isConfigured={options.secureJsonFields && options.secureJsonFields.password}
+            onReset={onResetPassword}
+            onBlur={onUpdateDatasourceSecureJsonDataOption(props, 'password')}
+          />
+        </Field>
+
+        <Field label="SSL Mode">
+          <Select width={ELEMENT_WIDTH} onChange={() => {}} disabled={true} />
+        </Field>
+      </ConfigSection>
+    </>
   );
 }

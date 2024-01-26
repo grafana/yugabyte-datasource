@@ -13,13 +13,15 @@ export const DEFAULT_QUERY: Partial<MyQuery> = {
 /**
  * These are options configured for each DataSource instance
  */
-export interface MyDataSourceOptions extends DataSourceJsonData {
-  path?: string;
+export interface YugabyteOptions extends DataSourceJsonData {
+  url: string;
+  user: string;
+  database: string;
 }
 
 /**
  * Value that is used in the backend, but never sent over HTTP to the frontend
  */
-export interface MySecureJsonData {
-  apiKey?: string;
+export interface YugabyteSecureJsonData {
+  password?: string;
 }
