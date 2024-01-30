@@ -2,98 +2,141 @@ package plugin
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"math/rand"
-	"time"
+	"net"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
-	"github.com/grafana/grafana-plugin-sdk-go/data"
+	"github.com/grafana/grafana-plugin-sdk-go/data/sqlutil"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-// Make sure Datasource implements required interfaces. This is important to do
-// since otherwise we will only get a not implemented error response from plugin in
-// runtime. In this example datasource instance implements backend.QueryDataHandler,
-// backend.CheckHealthHandler interfaces. Plugin should not implement all these
-// interfaces - only those which are required for a particular task.
+type Datasource struct {
+	settings backend.DataSourceInstanceSettings
+}
+
+type Settings struct {
+	url      string
+	user     string
+	database string
+	password string
+}
+
+type JSONData struct {
+	Database string `json:"database"`
+}
+
+type QueryModel struct {
+	QueryType string `json:"queryType"`
+	RawSql    string `json:"rawSql"`
+}
+
 var (
 	_ backend.QueryDataHandler      = (*Datasource)(nil)
 	_ backend.CheckHealthHandler    = (*Datasource)(nil)
 	_ instancemgmt.InstanceDisposer = (*Datasource)(nil)
 )
 
-// NewDatasource creates a new datasource instance.
-func NewDatasource(_ context.Context, _ backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
-	return &Datasource{}, nil
+func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
+	return &Datasource{
+		settings: settings,
+	}, nil
 }
 
-// Datasource is an example datasource which can respond to data queries, reports
-// its health and has streaming skills.
-type Datasource struct{}
+func (ds *Datasource) LoadSettings(ctx context.Context) (*Settings, error) {
+	JSONData := &JSONData{}
 
-// Dispose here tells plugin SDK that plugin wants to clean up resources when a new instance
-// created. As soon as datasource settings change detected by SDK old datasource instance will
-// be disposed and a new one will be created using NewSampleDatasource factory function.
-func (d *Datasource) Dispose() {
-	// Clean up datasource instance resources.
+	err := json.Unmarshal(ds.settings.JSONData, &JSONData)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Settings{
+		url:      ds.settings.URL,
+		user:     ds.settings.User,
+		database: JSONData.Database,
+		password: ds.settings.DecryptedSecureJSONData["password"],
+	}, nil
 }
 
-// QueryData handles multiple queries and returns multiple responses.
-// req contains the queries []DataQuery (where each query contains RefID as a unique identifier).
-// The QueryDataResponse contains a map of RefID to the response for each query, and each response
-// contains Frames ([]*Frame).
-func (d *Datasource) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
-	// create response struct
+func (ds *Datasource) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
 	response := backend.NewQueryDataResponse()
 
-	// loop over queries and execute them individually.
 	for _, q := range req.Queries {
-		res := d.query(ctx, req.PluginContext, q)
-
-		// save the response in a hashmap
-		// based on with RefID as identifier
+		res := ds.query(ctx, req.PluginContext, q)
 		response.Responses[q.RefID] = res
 	}
 
 	return response, nil
 }
 
-type queryModel struct{}
-
-func (d *Datasource) query(_ context.Context, pCtx backend.PluginContext, query backend.DataQuery) backend.DataResponse {
+func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dataQuery backend.DataQuery) backend.DataResponse {
 	var response backend.DataResponse
+	var query QueryModel
 
-	// Unmarshal the JSON into our queryModel.
-	var qm queryModel
-
-	err := json.Unmarshal(query.JSON, &qm)
+	err := json.Unmarshal(dataQuery.JSON, &query)
 	if err != nil {
-		return backend.ErrDataResponse(backend.StatusBadRequest, fmt.Sprintf("json unmarshal: %v", err.Error()))
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
 
-	// create data frame response.
-	// For an overview on data frames and how grafana handles them:
-	// https://grafana.com/developers/plugin-tools/introduction/data-frames
-	frame := data.NewFrame("response")
-
-	// add fields.
-	frame.Fields = append(frame.Fields,
-		data.NewField("time", nil, []time.Time{query.TimeRange.From, query.TimeRange.To}),
-		data.NewField("values", nil, []int64{10, 20}),
-	)
-
-	// add the frames to the response.
-	response.Frames = append(response.Frames, frame)
+	if query.QueryType == "YSQL" {
+		response = ds.handleYSQL(ctx, query)
+	} else {
+		response = ds.handleYCQL(ctx, query)
+	}
 
 	return response
+}
+
+func (ds *Datasource) handleYSQL(ctx context.Context, query QueryModel) backend.DataResponse {
+	var response backend.DataResponse
+
+	settings, err := ds.LoadSettings(ctx)
+	if err != nil {
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	}
+
+	host, port, err := net.SplitHostPort(settings.url)
+	if err != nil {
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	}
+
+	connection := fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='disable'", host, port, settings.database, settings.user, settings.password)
+
+	db, err := sql.Open("pgx", connection)
+	if err != nil {
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	}
+
+	defer db.Close()
+
+	rows, err := db.QueryContext(ctx, query.RawSql)
+	if err != nil {
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	}
+
+	frame, err := sqlutil.FrameFromRows(rows, 1_000_000)
+	if err != nil {
+		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	}
+
+	response.Frames = append(response.Frames, frame)
+	return response
+}
+
+func (ds *Datasource) handleYCQL(ctx context.Context, query QueryModel) backend.DataResponse {
+	return backend.ErrDataResponse(backend.StatusNotImplemented, "YCQL support is currently under development")
 }
 
 // CheckHealth handles health checks sent from Grafana to the plugin.
 // The main use case for these health checks is the test button on the
 // datasource configuration page which allows users to verify that
 // a datasource is working as expected.
-func (d *Datasource) CheckHealth(_ context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
+func (ds *Datasource) CheckHealth(_ context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
 	var status = backend.HealthStatusOk
 	var message = "Data source is working"
 
@@ -106,4 +149,11 @@ func (d *Datasource) CheckHealth(_ context.Context, req *backend.CheckHealthRequ
 		Status:  status,
 		Message: message,
 	}, nil
+}
+
+// Dispose here tells plugin SDK that plugin wants to clean up resources when a new instance
+// created. As soon as datasource settings change detected by SDK old datasource instance will
+// be disposed and a new one will be created using NewSampleDatasource factory function.
+func (ds *Datasource) Dispose() {
+	// Clean up datasource instance resources.
 }
