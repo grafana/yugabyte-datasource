@@ -23,5 +23,14 @@
     // ignore single line imports
     "import\\s*.*\".*?\""
   ],
-  "words": ["datasource", "grafana", "instancemgmt", "yugabyte"]
+  "words": [
+    "datasource",
+    "grafana",
+    "instancemgmt",
+    "sqlutil",
+    "sslmode",
+    "YCQL",
+    "YSQL",
+    "yugabyte"
+  ]
 }

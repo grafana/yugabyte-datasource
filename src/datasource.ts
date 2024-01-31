@@ -1,14 +1,9 @@
-import { DataSourceInstanceSettings, CoreApp } from '@grafana/data';
+import { DataSourceInstanceSettings } from '@grafana/data';
 import { DataSourceWithBackend } from '@grafana/runtime';
+import { YugabyteQuery, YugabyteOptions } from './types';
 
-import { MyQuery, YugabyteOptions, DEFAULT_QUERY } from './types';
-
-export class DataSource extends DataSourceWithBackend<MyQuery, YugabyteOptions> {
+export class DataSource extends DataSourceWithBackend<YugabyteQuery, YugabyteOptions> {
   constructor(instanceSettings: DataSourceInstanceSettings<YugabyteOptions>) {
     super(instanceSettings);
-  }
-
-  getDefaultQuery(_: CoreApp): Partial<MyQuery> {
-    return DEFAULT_QUERY;
   }
 }

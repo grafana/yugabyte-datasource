@@ -1,32 +1,24 @@
-import React, { ChangeEvent } from 'react';
-import { InlineField, Input } from '@grafana/ui';
+import React, { useCallback, useEffect } from 'react';
 import { QueryEditorProps } from '@grafana/data';
+import { SQLEditor } from '@grafana/experimental';
 import { DataSource } from '../datasource';
-import { YugabyteOptions, MyQuery } from '../types';
+import { YugabyteOptions, YugabyteQuery } from '../types';
 
-type Props = QueryEditorProps<DataSource, MyQuery, YugabyteOptions>;
+type Props = QueryEditorProps<DataSource, YugabyteQuery, YugabyteOptions>;
 
 export function QueryEditor({ query, onChange, onRunQuery }: Props) {
-  const onQueryTextChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange({ ...query, queryText: event.target.value });
-  };
+  useEffect(() => console.log(query), [query]);
 
-  const onConstantChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange({ ...query, constant: parseFloat(event.target.value) });
-    // executes the query
-    onRunQuery();
-  };
+  const onRawQueryChange = useCallback(
+    (rawSql: string, _: boolean) => {
+      if (rawSql === query.rawSql) {
+        return;
+      }
 
-  const { queryText, constant } = query;
-
-  return (
-    <div className="gf-form">
-      <InlineField label="Constant">
-        <Input onChange={onConstantChange} value={constant} width={8} type="number" step="0.1" />
-      </InlineField>
-      <InlineField label="Query Text" labelWidth={16} tooltip="Not used yet">
-        <Input onChange={onQueryTextChange} value={queryText || ''} />
-      </InlineField>
-    </div>
+      onChange({ ...query, queryType: 'YSQL', rawSql: rawSql });
+    },
+    [query, onChange]
   );
+
+  return <SQLEditor query={query.rawSql} onChange={onRawQueryChange} />;
 }
