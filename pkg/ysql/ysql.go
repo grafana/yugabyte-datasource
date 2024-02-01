@@ -8,10 +8,10 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/data/sqlutil"
-	"github.com/grafana/yugabyte/pkg/shared"
+	"github.com/grafana/yugabyte/pkg/models"
 )
 
-func Query(ctx context.Context, settings shared.Settings, query shared.QueryModel) backend.DataResponse {
+func Query(ctx context.Context, settings models.Settings, query models.QueryModel) backend.DataResponse {
 	var response backend.DataResponse
 
 	rows, err := ExecuteYSQL(ctx, settings, query)
@@ -28,7 +28,7 @@ func Query(ctx context.Context, settings shared.Settings, query shared.QueryMode
 	return response
 }
 
-func ExecuteYSQL(ctx context.Context, settings shared.Settings, query shared.QueryModel) (*sql.Rows, error) {
+func ExecuteYSQL(ctx context.Context, settings models.Settings, query models.QueryModel) (*sql.Rows, error) {
 	host, port, err := net.SplitHostPort(settings.Url)
 	if err != nil {
 		return nil, err

@@ -6,7 +6,7 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
-	"github.com/grafana/yugabyte/pkg/shared"
+	"github.com/grafana/yugabyte/pkg/models"
 	"github.com/grafana/yugabyte/pkg/ycql"
 	"github.com/grafana/yugabyte/pkg/ysql"
 
@@ -33,7 +33,7 @@ func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSetti
 	}, nil
 }
 
-func (ds *Datasource) LoadSettings(ctx context.Context) (*shared.Settings, error) {
+func (ds *Datasource) LoadSettings(ctx context.Context) (*models.Settings, error) {
 	JSONData := &JSONData{}
 
 	err := json.Unmarshal(ds.settings.JSONData, &JSONData)
@@ -41,7 +41,7 @@ func (ds *Datasource) LoadSettings(ctx context.Context) (*shared.Settings, error
 		return nil, err
 	}
 
-	return &shared.Settings{
+	return &models.Settings{
 		Url:      ds.settings.URL,
 		User:     ds.settings.User,
 		Database: JSONData.Database,
@@ -62,7 +62,7 @@ func (ds *Datasource) QueryData(ctx context.Context, req *backend.QueryDataReque
 
 func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dataQuery backend.DataQuery) backend.DataResponse {
 	var response backend.DataResponse
-	var query shared.QueryModel
+	var query models.QueryModel
 
 	err := json.Unmarshal(dataQuery.JSON, &query)
 	if err != nil {
@@ -94,7 +94,7 @@ func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthR
 		return fail, nil
 	}
 
-	rows, err := ysql.ExecuteYSQL(ctx, *settings, shared.QueryModel{QueryType: "YSQL", RawSql: "SELECT 1"})
+	rows, err := ysql.ExecuteYSQL(ctx, *settings, models.QueryModel{QueryType: "YSQL", RawSql: "SELECT 1"})
 	if err != nil {
 		return fail, nil
 	}
