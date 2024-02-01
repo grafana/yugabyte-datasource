@@ -17,10 +17,6 @@ type Datasource struct {
 	settings backend.DataSourceInstanceSettings
 }
 
-type JSONData struct {
-	Database string `json:"database"`
-}
-
 var (
 	_ backend.QueryDataHandler      = (*Datasource)(nil)
 	_ backend.CheckHealthHandler    = (*Datasource)(nil)
@@ -30,22 +26,6 @@ var (
 func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
 	return &Datasource{
 		settings: settings,
-	}, nil
-}
-
-func (ds *Datasource) LoadSettings(ctx context.Context) (*models.Settings, error) {
-	JSONData := &JSONData{}
-
-	err := json.Unmarshal(ds.settings.JSONData, &JSONData)
-	if err != nil {
-		return nil, err
-	}
-
-	return &models.Settings{
-		Url:      ds.settings.URL,
-		User:     ds.settings.User,
-		Database: JSONData.Database,
-		Password: ds.settings.DecryptedSecureJSONData["password"],
 	}, nil
 }
 
@@ -69,7 +49,7 @@ func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dat
 		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
 
-	settings, err := ds.LoadSettings(ctx)
+	settings, err := models.LoadSettings(ctx, ds.settings)
 	if err != nil {
 		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
@@ -89,7 +69,7 @@ func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthR
 		Message: "Health check failed",
 	}
 
-	settings, err := ds.LoadSettings(ctx)
+	settings, err := models.LoadSettings(ctx, ds.settings)
 	if err != nil {
 		return fail, nil
 	}
