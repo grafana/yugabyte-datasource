@@ -2,7 +2,6 @@ package plugin
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
@@ -42,9 +41,8 @@ func (ds *Datasource) QueryData(ctx context.Context, req *backend.QueryDataReque
 
 func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dataQuery backend.DataQuery) backend.DataResponse {
 	var response backend.DataResponse
-	var query models.QueryModel
 
-	err := json.Unmarshal(dataQuery.JSON, &query)
+	query, err := models.LoadQuery(ctx, dataQuery)
 	if err != nil {
 		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
@@ -55,9 +53,9 @@ func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dat
 	}
 
 	if query.QueryType == "YSQL" {
-		response = ysql.Query(ctx, *settings, query)
+		response = ysql.Query(ctx, *settings, *query)
 	} else {
-		response = ycql.Query(ctx, *settings, query)
+		response = ycql.Query(ctx, *settings, *query)
 	}
 
 	return response
