@@ -2,15 +2,13 @@ package plugin
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
-	"fmt"
-	"math/rand"
-	"net"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
-	"github.com/grafana/grafana-plugin-sdk-go/data/sqlutil"
+	"github.com/grafana/yugabyte/pkg/shared"
+	"github.com/grafana/yugabyte/pkg/ycql"
+	"github.com/grafana/yugabyte/pkg/ysql"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
@@ -19,20 +17,8 @@ type Datasource struct {
 	settings backend.DataSourceInstanceSettings
 }
 
-type Settings struct {
-	url      string
-	user     string
-	database string
-	password string
-}
-
 type JSONData struct {
 	Database string `json:"database"`
-}
-
-type QueryModel struct {
-	QueryType string `json:"queryType"`
-	RawSql    string `json:"rawSql"`
 }
 
 var (
@@ -47,7 +33,7 @@ func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSetti
 	}, nil
 }
 
-func (ds *Datasource) LoadSettings(ctx context.Context) (*Settings, error) {
+func (ds *Datasource) LoadSettings(ctx context.Context) (*shared.Settings, error) {
 	JSONData := &JSONData{}
 
 	err := json.Unmarshal(ds.settings.JSONData, &JSONData)
@@ -55,11 +41,11 @@ func (ds *Datasource) LoadSettings(ctx context.Context) (*Settings, error) {
 		return nil, err
 	}
 
-	return &Settings{
-		url:      ds.settings.URL,
-		user:     ds.settings.User,
-		database: JSONData.Database,
-		password: ds.settings.DecryptedSecureJSONData["password"],
+	return &shared.Settings{
+		Url:      ds.settings.URL,
+		User:     ds.settings.User,
+		Database: JSONData.Database,
+		Password: ds.settings.DecryptedSecureJSONData["password"],
 	}, nil
 }
 
@@ -76,78 +62,54 @@ func (ds *Datasource) QueryData(ctx context.Context, req *backend.QueryDataReque
 
 func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dataQuery backend.DataQuery) backend.DataResponse {
 	var response backend.DataResponse
-	var query QueryModel
+	var query shared.QueryModel
 
 	err := json.Unmarshal(dataQuery.JSON, &query)
 	if err != nil {
 		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
 
-	if query.QueryType == "YSQL" {
-		response = ds.handleYSQL(ctx, query)
-	} else {
-		response = ds.handleYCQL(ctx, query)
-	}
-
-	return response
-}
-
-func (ds *Datasource) handleYSQL(ctx context.Context, query QueryModel) backend.DataResponse {
-	var response backend.DataResponse
-
 	settings, err := ds.LoadSettings(ctx)
 	if err != nil {
 		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
 	}
 
-	host, port, err := net.SplitHostPort(settings.url)
-	if err != nil {
-		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
+	if query.QueryType == "YSQL" {
+		response = ysql.Query(ctx, *settings, query)
+	} else {
+		response = ycql.Query(ctx, *settings, query)
 	}
 
-	connection := fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='disable'", host, port, settings.database, settings.user, settings.password)
-
-	db, err := sql.Open("pgx", connection)
-	if err != nil {
-		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
-	}
-
-	defer db.Close()
-
-	rows, err := db.QueryContext(ctx, query.RawSql)
-	if err != nil {
-		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
-	}
-
-	frame, err := sqlutil.FrameFromRows(rows, 1_000_000)
-	if err != nil {
-		return backend.ErrDataResponse(backend.StatusBadRequest, err.Error())
-	}
-
-	response.Frames = append(response.Frames, frame)
 	return response
 }
 
-func (ds *Datasource) handleYCQL(ctx context.Context, query QueryModel) backend.DataResponse {
-	return backend.ErrDataResponse(backend.StatusNotImplemented, "YCQL support is currently under development")
-}
+func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
+	fail := &backend.CheckHealthResult{
+		Status:  backend.HealthStatusError,
+		Message: "Health check failed",
+	}
 
-// CheckHealth handles health checks sent from Grafana to the plugin.
-// The main use case for these health checks is the test button on the
-// datasource configuration page which allows users to verify that
-// a datasource is working as expected.
-func (ds *Datasource) CheckHealth(_ context.Context, req *backend.CheckHealthRequest) (*backend.CheckHealthResult, error) {
-	var status = backend.HealthStatusOk
-	var message = "Data source is working"
+	settings, err := ds.LoadSettings(ctx)
+	if err != nil {
+		return fail, nil
+	}
 
-	if rand.Int()%2 == 0 {
-		status = backend.HealthStatusError
-		message = "randomized error"
+	rows, err := ysql.ExecuteYSQL(ctx, *settings, shared.QueryModel{QueryType: "YSQL", RawSql: "SELECT 1"})
+	if err != nil {
+		return fail, nil
+	}
+
+	var value int
+	if rows.Next() {
+		err := rows.Scan(&value)
+		if err != nil || value != 1.000 {
+			return fail, nil
+		}
 	}
 
 	return &backend.CheckHealthResult{
-		Status:  status,
-		Message: message,
+		Status:  backend.HealthStatusOk,
+		Message: "Data source is working",
 	}, nil
 }
 
