@@ -18,7 +18,6 @@ func LoadSettings(ctx context.Context, dsSettings backend.DataSourceInstanceSett
 	settings := &Settings{
 		Url:      dsSettings.URL,
 		User:     dsSettings.User,
-		Database: dsSettings.Database,
 		Password: dsSettings.DecryptedSecureJSONData["password"],
 	}
 
