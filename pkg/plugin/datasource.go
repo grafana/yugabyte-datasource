@@ -73,7 +73,13 @@ func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthR
 	}
 
 	response := ysql.Query(ctx, *settings, models.QueryModel{RawSql: "SELECT 42"})
-	if response.Error != nil || len(response.Frames) != 1 {
+
+	rowLen, err := response.Frames[0].RowLen()
+	if err != nil {
+		return fail, nil
+	}
+
+	if response.Error != nil || len(response.Frames) != 1 || rowLen != 1 {
 		return fail, nil
 	}
 
