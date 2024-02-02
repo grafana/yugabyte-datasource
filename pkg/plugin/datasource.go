@@ -72,17 +72,15 @@ func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthR
 		return fail, nil
 	}
 
-	rows, err := ysql.ExecuteYSQL(ctx, *settings, models.QueryModel{QueryType: "YSQL", RawSql: "SELECT 1"})
-	if err != nil {
+	response := ysql.Query(ctx, *settings, models.QueryModel{RawSql: "SELECT 42"})
+	if response.Error != nil || len(response.Frames) != 1 {
 		return fail, nil
 	}
 
-	var value int
-	if rows.Next() {
-		err := rows.Scan(&value)
-		if err != nil || value != 1.000 {
-			return fail, nil
-		}
+	val := response.Frames[0].RowCopy(0)[0].(*int32)
+
+	if *val != 42 {
+		return fail, nil
 	}
 
 	return &backend.CheckHealthResult{
