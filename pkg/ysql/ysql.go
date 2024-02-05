@@ -34,7 +34,7 @@ func ExecuteYSQL(ctx context.Context, settings models.Settings, query models.Que
 		return nil, err
 	}
 
-	connection := fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='disable'", host, port, settings.Database, settings.User, settings.Password)
+	connection := fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='allow'", host, port, settings.Database, settings.User, settings.Password)
 
 	db, err := sql.Open("pgx", connection)
 	if err != nil {
