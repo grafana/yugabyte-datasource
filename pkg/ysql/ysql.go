@@ -29,12 +29,10 @@ func Query(ctx context.Context, settings models.Settings, query models.QueryMode
 }
 
 func ExecuteYSQL(ctx context.Context, settings models.Settings, query models.QueryModel) (*sql.Rows, error) {
-	host, port, err := net.SplitHostPort(settings.Url)
+	connection, err := buildConnectionString(settings)
 	if err != nil {
 		return nil, err
 	}
-
-	connection := fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='allow'", host, port, settings.Database, settings.User, settings.Password)
 
 	db, err := sql.Open("pgx", connection)
 	if err != nil {
@@ -49,4 +47,13 @@ func ExecuteYSQL(ctx context.Context, settings models.Settings, query models.Que
 	}
 
 	return rows, nil
+}
+
+func buildConnectionString(settings models.Settings) (string, error) {
+	host, port, err := net.SplitHostPort(settings.Url)
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("host='%s' port='%s' database='%s' user='%s' password='%s' sslmode='allow'", host, port, settings.Database, settings.User, settings.Password), nil
 }
