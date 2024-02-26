@@ -19,11 +19,6 @@ func TestLoadQuery(t *testing.T) {
 			t.Errorf("Unexpected error: %v", err)
 		}
 
-		if query == nil {
-			t.Error("Expected non-nil query")
-			return
-		}
-
 		if query.RawSql != expected.RawSql {
 			t.Errorf("Unexpected query. Expected: %s, got: %s", expected.RawSql, query.RawSql)
 		}

@@ -53,9 +53,9 @@ func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dat
 	}
 
 	if query.QueryType == "YSQL" {
-		response = ysql.Query(ctx, *settings, *query)
+		response = ysql.Query(ctx, *settings, query)
 	} else {
-		response = ycql.Query(ctx, *settings, *query)
+		response = ycql.Query(ctx, *settings, query)
 	}
 
 	return response
