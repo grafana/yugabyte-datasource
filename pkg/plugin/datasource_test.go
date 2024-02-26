@@ -14,7 +14,7 @@ func TestNewDatasource(t *testing.T) {
 
 	instance, err := NewDatasource(ctx, settings)
 	if err != nil {
-		t.Errorf("Unexpected error: %v", err)
+		t.Error(err)
 	}
 
 	ds, ok := instance.(*Datasource)

@@ -16,7 +16,7 @@ func TestLoadQuery(t *testing.T) {
 
 		query, err := LoadQuery(ctx, dataQuery)
 		if err != nil {
-			t.Errorf("Unexpected error: %v", err)
+			t.Error(err)
 		}
 
 		if query.RawSql != expected.RawSql {

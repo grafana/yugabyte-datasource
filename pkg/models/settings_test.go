@@ -29,7 +29,7 @@ func TestLoadSettings(t *testing.T) {
 
 		settings, err := LoadSettings(ctx, dsSettings)
 		if err != nil {
-			t.Errorf("Unexpected error: %v", err)
+			t.Error(err)
 		}
 
 		if settings.Url != expected.Url {

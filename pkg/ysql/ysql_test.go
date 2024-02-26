@@ -13,7 +13,7 @@ func TestBuildConnectionString(t *testing.T) {
 
 		result, err := buildConnectionString(settings)
 		if err != nil {
-			t.Errorf("Expected: %s, got: %s", expected, err)
+			t.Error(err)
 		}
 
 		if result != expected {
