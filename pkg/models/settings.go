@@ -14,16 +14,16 @@ type Settings struct {
 	Password string
 }
 
-func LoadSettings(ctx context.Context, dsSettings backend.DataSourceInstanceSettings) (*Settings, error) {
-	settings := &Settings{
+func LoadSettings(ctx context.Context, dsSettings backend.DataSourceInstanceSettings) (Settings, error) {
+	settings := Settings{
 		Url:      dsSettings.URL,
 		User:     dsSettings.User,
 		Password: dsSettings.DecryptedSecureJSONData["password"],
 	}
 
-	err := json.Unmarshal(dsSettings.JSONData, settings)
+	err := json.Unmarshal(dsSettings.JSONData, &settings)
 	if err != nil {
-		return nil, err
+		return Settings{}, err
 	}
 
 	return settings, nil

@@ -12,13 +12,13 @@ type QueryModel struct {
 	RawSql    string `json:"rawSql"`
 }
 
-func LoadQuery(ctx context.Context, dataQuery backend.DataQuery) (*QueryModel, error) {
+func LoadQuery(ctx context.Context, dataQuery backend.DataQuery) (QueryModel, error) {
 	var query QueryModel
 
 	err := json.Unmarshal(dataQuery.JSON, &query)
 	if err != nil {
-		return nil, err
+		return QueryModel{}, err
 	}
 
-	return &query, nil
+	return query, nil
 }
