@@ -53,9 +53,9 @@ func (ds *Datasource) query(ctx context.Context, pCtx backend.PluginContext, dat
 	}
 
 	if query.QueryType == "YSQL" {
-		response = ysql.Query(ctx, *settings, query)
+		response = ysql.Query(ctx, settings, query)
 	} else {
-		response = ycql.Query(ctx, *settings, query)
+		response = ycql.Query(ctx, settings, query)
 	}
 
 	return response
@@ -72,7 +72,7 @@ func (ds *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthR
 		return fail, nil
 	}
 
-	response := ysql.Query(ctx, *settings, models.QueryModel{RawSql: "SELECT 42"})
+	response := ysql.Query(ctx, settings, models.QueryModel{RawSql: "SELECT 42"})
 
 	rowLen, err := response.Frames[0].RowLen()
 	if err != nil {

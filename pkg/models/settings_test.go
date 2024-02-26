@@ -32,11 +32,6 @@ func TestLoadSettings(t *testing.T) {
 			t.Errorf("Unexpected error: %v", err)
 		}
 
-		if settings == nil {
-			t.Error("Expected non-nil settings")
-			return
-		}
-
 		if settings.Url != expected.Url {
 			t.Errorf("Unexpected URL. Expected: %s, got: %s", expected.Url, settings.Url)
 		}
