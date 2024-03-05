@@ -27,6 +27,7 @@
     "datasource",
     "grafana",
     "instancemgmt",
+    "sqlds",
     "sqlutil",
     "sslmode",
     "YCQL",

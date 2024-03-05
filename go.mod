@@ -4,15 +4,27 @@ go 1.21
 
 toolchain go1.21.0
 
-require github.com/grafana/grafana-plugin-sdk-go v0.201.0
+require (
+	github.com/grafana/grafana-plugin-sdk-go v0.201.0
+	github.com/stretchr/testify v1.8.4
+)
 
 require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
+	github.com/mitchellh/go-homedir v1.0.0 // indirect
+	github.com/mithrandie/csvq v1.17.10 // indirect
+	github.com/mithrandie/csvq-driver v1.6.8 // indirect
+	github.com/mithrandie/go-file/v2 v2.1.0 // indirect
+	github.com/mithrandie/go-text v1.5.4 // indirect
+	github.com/mithrandie/ternary v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/exp v0.0.0-20230206171751-46f607a40771 // indirect
+	golang.org/x/exp v0.0.0-20230307190834-24139beb5833 // indirect
 	golang.org/x/sync v0.4.0 // indirect
+	golang.org/x/term v0.16.0 // indirect
 )
 
 require (
@@ -38,6 +50,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
+	github.com/grafana/sqlds/v2 v2.7.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.2 // indirect
