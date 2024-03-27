@@ -1,23 +1,26 @@
-import { DataSourceJsonData } from '@grafana/data';
-import { DataQuery } from '@grafana/schema';
+import { SQLOptions, SQLQuery } from '@grafana/plugin-ui';
 
-export interface YugabyteQuery extends DataQuery {
-  queryType: 'YSQL' | 'YCQL';
-  rawSql: string;
-}
+/**
+ * Represents a query specific to the Yugabyte data source.
+ */
+export interface YugabyteQuery extends SQLQuery {}
 
 /**
  * These are options configured for each DataSource instance
  */
-export interface YugabyteOptions extends DataSourceJsonData {
-  url: string;
-  user: string;
-  database: string;
-}
+export interface YugabyteOptions extends SQLOptions {}
 
 /**
  * Value that is used in the backend, but never sent over HTTP to the frontend
  */
 export interface YugabyteSecureJsonData {
   password?: string;
+}
+
+/**
+ * The format of a query result.
+ */
+export enum QueryFormatRaw {
+  TimeSeries = 0,
+  Table = 1,
 }
