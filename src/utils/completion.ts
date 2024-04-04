@@ -22,13 +22,11 @@ export const getCompletionProvider = ({
       ...(language && getStandardSQLCompletionProvider(monaco, language)),
       tables: {
         resolve: async () => {
-          console.log('tables');
           return await getTables.current();
         },
       },
       columns: {
         resolve: async (t?: TableIdentifier) => {
-          console.log('columns');
           return await getColumns.current({ table: t?.table, refId: 'A' });
         },
       },
