@@ -1,22 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { QueryEditorProps } from '@grafana/data';
-import { SQLEditor } from '@grafana/experimental';
-import { DataSource } from '../datasource';
+import { YugabyteDataSource } from '../datasource';
 import { YugabyteOptions, YugabyteQuery } from '../types';
+import { SqlDatasource, SqlQueryEditor } from '@grafana/plugin-ui';
 
-type Props = QueryEditorProps<DataSource, YugabyteQuery, YugabyteOptions>;
+type Props = QueryEditorProps<YugabyteDataSource, YugabyteQuery, YugabyteOptions>;
 
-export function QueryEditor({ query, onChange }: Props) {
-  const onRawQueryChange = useCallback(
-    (rawSql: string, _: boolean) => {
-      if (rawSql === query.rawSql) {
-        return;
-      }
-
-      onChange({ ...query, queryType: 'YSQL', rawSql: rawSql });
-    },
-    [query, onChange]
-  );
-
-  return <SQLEditor query={query.rawSql} onChange={onRawQueryChange} />;
+export function QueryEditor(props: Props) {
+  return <SqlQueryEditor {...props} datasource={props.datasource as unknown as SqlDatasource} enableDatasets={false} />;
 }
