@@ -1,16 +1,14 @@
-DROP TABLE IF EXISTS employees;
+-- Clear out the tables if they already exist.
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS reviews;
 
-CREATE TABLE employees (
-    employee_no integer,
-    name text,
-    department text,
-    salary integer
-);
+-- Create the four tables necessary to store the data.
+\i share/schema.sql;
 
-INSERT INTO
-    employees
-VALUES
-    (1, 'John Doe', 'Marketing', 2000),
-    (2, 'Jane Smith', 'Legal', 2200),
-    (3, 'Bob Johnson', 'Marketing', 3000),
-    (4, 'Foo Bar', 'Engineering', 6000);
+-- Now load the data into the tables.
+\i share/products.sql;
+\i share/users.sql;
+\i share/orders.sql;
+\i share/reviews.sql;
