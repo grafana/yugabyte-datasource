@@ -77,10 +77,6 @@ export function ConfigEditor(props: Props) {
             onBlur={onUpdateDatasourceSecureJsonDataOption(props, 'password')}
           />
         </Field>
-
-        <Field label="SSL Mode">
-          <Select width={ELEMENT_WIDTH} onChange={() => {}} disabled={true} />
-        </Field>
       </ConfigSection>
     </>
   );
