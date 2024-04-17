@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import { Field, Input, SecretInput, Select } from '@grafana/ui';
+import { Field, Input, SecretInput } from '@grafana/ui';
 import {
   DataSourcePluginOptionsEditorProps,
   onUpdateDatasourceJsonDataOption,
