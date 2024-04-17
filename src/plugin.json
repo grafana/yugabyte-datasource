@@ -11,7 +11,7 @@
     "author": {
       "name": "Grafana"
     },
-    "keywords": ["yugabyte", "datasource"],
+    "keywords": ["yugabyte", "datasource", "database", "sql"],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
