@@ -9,7 +9,7 @@
   "info": {
     "description": "Yugabyte datasource plugin for grafana",
     "author": {
-      "name": "Grafana"
+      "name": "Grafana Labs"
     },
     "keywords": ["yugabyte", "datasource", "database", "sql"],
     "logos": {
