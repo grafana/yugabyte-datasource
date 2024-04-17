@@ -20,7 +20,7 @@ export interface YugabyteSecureJsonData {
 /**
  * The format of a query result.
  */
-export enum QueryFormatRaw {
+export enum SqldsQueryFormat {
   TimeSeries = 0,
   Table = 1,
 }
