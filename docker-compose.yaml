@@ -2,7 +2,7 @@ version: '3.0'
 services:
   yugabyte:
     image: yugabytedb/yugabyte:latest
-    container_name: yugabyte1
+    container_name: yugabyte
     command: bin/yugabyted start --daemon=false --initial_scripts_dir=/var/ybinit --tserver_flags=ysql_enable_auth=false
     volumes:
       - ./provisioning/yugabyte/init:/var/ybinit
