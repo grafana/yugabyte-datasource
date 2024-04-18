@@ -3,3 +3,7 @@
 ## Configuration
 
 TBD
+
+## Query Editor
+
+TBD
