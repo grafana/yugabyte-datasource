@@ -1,16 +1,29 @@
 version: '3.0'
-
 services:
+  yugabyte:
+    image: yugabytedb/yugabyte:latest
+    container_name: yugabyte1
+    command: bin/yugabyted start --daemon=false --initial_scripts_dir=/var/ybinit --tserver_flags=ysql_enable_auth=false
+    volumes:
+      - ./provisioning/yugabyte/init:/var/ybinit
+    ports:
+      - 5433:5433
   grafana:
-    container_name: 'grafana-yugabyte-datasource'
-    platform: 'linux/amd64'
-    build:
-      context: ./.config
-      args:
-        grafana_image: ${GRAFANA_IMAGE:-grafana-enterprise}
-        grafana_version: ${GRAFANA_VERSION:-10.0.3}
+    image: grafana/grafana-enterprise:main
+    container_name: grafana-yugabyte-datasource
+    depends_on:
+      - yugabyte
     ports:
       - 3000:3000/tcp
     volumes:
       - ./dist:/var/lib/grafana/plugins/grafana-yugabyte-datasource
       - ./provisioning:/etc/grafana/provisioning
+    environment:
+      TERM: linux
+      NODE_ENV: development
+      GF_DEFAULT_APP_MODE: development
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_SECURITY_ADMIN_USER: yugabyte
+      GF_SECURITY_ADMIN_PASSWORD: yugabyte
+      GF_ENTERPRISE_LICENSE_TEXT: $GF_ENTERPRISE_LICENSE_TEXT
