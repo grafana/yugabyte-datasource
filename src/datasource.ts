@@ -17,7 +17,7 @@ import { LanguageCompletionProvider } from '@grafana/experimental';
 import { DB, QueryFormat, SQLSelectableValue, ValidationResults } from '@grafana/plugin-ui';
 import { DataQuery } from '@grafana/schema';
 import { Observable, lastValueFrom, map } from 'rxjs';
-import { YugabyteQuery, YugabyteOptions, QueryFormatRaw } from 'types';
+import { YugabyteQuery, YugabyteOptions, SqldsQueryFormat } from 'types';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
 import { toRawSql } from './utils/sql';
@@ -42,9 +42,9 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
   query(request: DataQueryRequest<YugabyteQuery>): Observable<DataQueryResponse> {
     const targets = request.targets.map((target) => {
       if (target.format === 'time_series') {
-        return { ...target, format: QueryFormatRaw.TimeSeries as unknown as QueryFormat };
+        return { ...target, format: SqldsQueryFormat.TimeSeries as unknown as QueryFormat };
       } else {
-        return { ...target, format: QueryFormatRaw.Table as unknown as QueryFormat };
+        return { ...target, format: SqldsQueryFormat.Table as unknown as QueryFormat };
       }
     });
     return super.query({ ...request, targets: targets });
@@ -66,7 +66,7 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
     const frame = await this.runMetaQuery(
       {
         rawSql: query,
-        format: QueryFormatRaw.Table as unknown as QueryFormat,
+        format: SqldsQueryFormat.Table as unknown as QueryFormat,
         refId: options?.refId,
       },
       options

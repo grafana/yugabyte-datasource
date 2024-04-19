@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react';
-import { Field, Input, SecretInput, Select } from '@grafana/ui';
+import { Field, Input, SecretInput } from '@grafana/ui';
 import {
   DataSourcePluginOptionsEditorProps,
   onUpdateDatasourceJsonDataOption,
@@ -76,10 +76,6 @@ export function ConfigEditor(props: Props) {
             onReset={onResetPassword}
             onBlur={onUpdateDatasourceSecureJsonDataOption(props, 'password')}
           />
-        </Field>
-
-        <Field label="SSL Mode">
-          <Select width={ELEMENT_WIDTH} onChange={() => {}} disabled={true} />
         </Field>
       </ConfigSection>
     </>

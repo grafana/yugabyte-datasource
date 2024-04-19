@@ -25,13 +25,10 @@
   ],
   "words": [
     "datasource",
-    "grafana",
     "instancemgmt",
     "sqlds",
     "sqlutil",
     "sslmode",
-    "YCQL",
-    "YSQL",
     "yugabyte"
   ]
 }
