@@ -1846,10 +1846,10 @@
     ua-parser-js "^1.0.32"
     web-vitals "^3.1.1"
 
-"@grafana/plugin-ui@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@grafana/plugin-ui/-/plugin-ui-0.6.3.tgz#2e6b8a37584ef2e79ec806f5689e552db9417cee"
-  integrity sha512-SkPF0YE7Q4rRazaNkkA0UsUDp2S0jN+3F8O4daHRFCyH4ZwiEF82G6MYLgDs1NRr3SGqJ/SBOZHn6lu9+Khnzg==
+"@grafana/plugin-ui@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@grafana/plugin-ui/-/plugin-ui-0.7.0.tgz#e17b9e5311f949e1365ea967584386f398fd0361"
+  integrity sha512-KYbXqx1WdXmm3fzvh77aIkn3zjyiCy4nKekWIDubVWaCSEn4CV9fyPrD925UnVwKZ9ZgJp66INdJTnGBULxA3w==
   dependencies:
     "@changesets/read" "^0.5.9"
     "@changesets/write" "^0.2.3"
