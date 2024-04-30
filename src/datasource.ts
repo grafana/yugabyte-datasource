@@ -20,7 +20,6 @@ import { Observable, lastValueFrom, map } from 'rxjs';
 import { YugabyteQuery, YugabyteOptions, SqldsQueryFormat } from 'types';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
-import { toRawSql } from './utils/sql';
 import { AGGREGATE_FNS } from './utils/constants';
 
 export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, YugabyteOptions> {
@@ -139,8 +138,8 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
       tables: async () => await this.fetchTables(),
       fields: async (query: YugabyteQuery) => await this.fetchFields(query),
       validateQuery: async (query: YugabyteQuery) => this.validateQuery(query),
-      toRawSql: (query: YugabyteQuery) => toRawSql(query),
       getSqlCompletionProvider: () => this.getSqlCompletionProvider(this.db),
+      disableDatasets: true,
     };
   }
 
