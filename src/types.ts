@@ -16,11 +16,3 @@ export interface YugabyteOptions extends SQLOptions {}
 export interface YugabyteSecureJsonData {
   password?: string;
 }
-
-/**
- * The format of a query result.
- */
-export enum SqldsQueryFormat {
-  TimeSeries = 0,
-  Table = 1,
-}
