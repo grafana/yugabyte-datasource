@@ -1,8 +1,6 @@
 import {
   DataFrame,
   DataFrameView,
-  DataQueryRequest,
-  DataQueryResponse,
   DataSourceInstanceSettings,
   TimeRange,
 } from '@grafana/data';
@@ -16,8 +14,8 @@ import {
 import { LanguageCompletionProvider } from '@grafana/experimental';
 import { DB, QueryFormat, SQLSelectableValue, ValidationResults } from '@grafana/plugin-ui';
 import { DataQuery } from '@grafana/schema';
-import { Observable, lastValueFrom, map } from 'rxjs';
-import { YugabyteQuery, YugabyteOptions, SqldsQueryFormat } from 'types';
+import { lastValueFrom, map } from 'rxjs';
+import { YugabyteQuery, YugabyteOptions } from 'types';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
 import { AGGREGATE_FNS } from './utils/constants';
@@ -32,21 +30,6 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
     super(instanceSettings);
     this.db = this.getDB();
     this.dataset = this.instanceSettings.jsonData.database;
-  }
-
-  /**
-   * Executes a query request and returns the response.
-   * Transforms the query format to so it can be recognized by sqlds.
-   */
-  query(request: DataQueryRequest<YugabyteQuery>): Observable<DataQueryResponse> {
-    const targets = request.targets.map((target) => {
-      if (target.format === 'time_series') {
-        return { ...target, format: SqldsQueryFormat.TimeSeries as unknown as QueryFormat };
-      } else {
-        return { ...target, format: SqldsQueryFormat.Table as unknown as QueryFormat };
-      }
-    });
-    return super.query({ ...request, targets: targets });
   }
 
   /**
@@ -65,7 +48,7 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
     const frame = await this.runMetaQuery(
       {
         rawSql: query,
-        format: SqldsQueryFormat.Table as unknown as QueryFormat,
+        format: QueryFormat.Table,
         refId: options?.refId,
       },
       options
