@@ -1,9 +1,4 @@
-import {
-  DataFrame,
-  DataFrameView,
-  DataSourceInstanceSettings,
-  TimeRange,
-} from '@grafana/data';
+import { DataFrame, DataFrameView, DataSourceInstanceSettings, ScopedVars, TimeRange } from '@grafana/data';
 import {
   BackendDataSourceResponse,
   DataSourceWithBackend,
@@ -19,6 +14,8 @@ import { YugabyteQuery, YugabyteOptions } from 'types';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
 import { AGGREGATE_FNS } from './utils/constants';
+import { YugabyteVariableSupport } from 'variables';
+import { replace } from 'utils/variables';
 
 export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, YugabyteOptions> {
   annotations = {};
@@ -30,6 +27,16 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
     super(instanceSettings);
     this.db = this.getDB();
     this.dataset = this.instanceSettings.jsonData.database;
+    this.variables = new YugabyteVariableSupport(this);
+  }
+
+  /**
+   * Applies template variables to the given YugabyteQuery object.
+   * Replaces any occurrences of template variables in the raw SQL string with their corresponding values.
+   */
+  applyTemplateVariables(query: YugabyteQuery, scopedVars: ScopedVars) {
+    const sql = replace(query.rawSql || '', scopedVars) || '';
+    return { ...query, rawSql: sql };
   }
 
   /**
