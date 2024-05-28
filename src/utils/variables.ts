@@ -8,7 +8,7 @@ export const replace = (value?: string, scopedVars?: ScopedVars) => {
   return value;
 };
 
-const format = (value: any) => {
+export const format = (value: any) => {
   if (Array.isArray(value)) {
     return `'${value.join("','")}'`;
   }
