@@ -35,7 +35,7 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
    * Replaces any occurrences of template variables in the raw SQL string with their corresponding values.
    */
   applyTemplateVariables(query: YugabyteQuery, scopedVars: ScopedVars) {
-    const sql = replace(query.rawSql || '', scopedVars) || '';
+    const sql = replace(query.rawSql ?? '', scopedVars) ?? '';
     return { ...query, rawSql: sql };
   }
 
