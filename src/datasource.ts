@@ -1,4 +1,4 @@
-import { DataFrame, DataFrameView, DataSourceInstanceSettings, ScopedVars, TimeRange } from '@grafana/data';
+import { DataFrame, DataFrameView, DataQueryRequest, DataQueryResponse, DataSourceInstanceSettings, ScopedVars, TimeRange } from '@grafana/data';
 import {
   BackendDataSourceResponse,
   DataSourceWithBackend,
@@ -9,7 +9,7 @@ import {
 import { LanguageCompletionProvider } from '@grafana/experimental';
 import { DB, QueryFormat, SQLSelectableValue, ValidationResults } from '@grafana/plugin-ui';
 import { DataQuery } from '@grafana/schema';
-import { lastValueFrom, map } from 'rxjs';
+import { Observable, lastValueFrom, map } from 'rxjs';
 import { YugabyteQuery, YugabyteOptions } from 'types';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
@@ -45,6 +45,15 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
    */
   validateQuery(query: YugabyteQuery): ValidationResults {
     return { query, isError: false, isValid: true, error: '' };
+  }
+
+  /**
+   * Executes a query against the Yugabyte database.
+   * If the query contains raw SQL, it will be executed.
+   */
+  query(request: DataQueryRequest<YugabyteQuery>): Observable<DataQueryResponse> {
+    const queries = request.targets.filter((target) => target.rawSql);
+    return super.query({ ...request, targets: queries });
   }
 
   /**
