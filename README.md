@@ -1,4 +1,4 @@
-# Yugabyte Datasource
+# Yugabyte data source
 
 The Yugabyte data source plugin allows you to seamlessly connect Grafana to your YugabyteDB instances, enabling rich visualization and monitoring of your YugabyteDB data.
 
