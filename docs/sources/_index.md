@@ -2,25 +2,32 @@
 title: Yugabyte data source
 description: This document introduces the Yugabyte data source
 weight: 10
+hero:
+  title: Yugabyte data source plugin
+  description: The Yugabyte data source for Grafana allows you to query and visualize data from YugabyteDB.
+  level: 1
 ---
 
-# Yugabyte data source for Grafana
+{{< docs/hero-simple key="hero" >}}
 
-The Yugabyte data source for Grafana allows you to visualize and monitor your YugabyteDB clusters.
-
-Opting for the Yugabyte data source over the PostgreSQL data source can provide several advantages, particularly when exclusively working with YugabyteDB clusters.
-Unlike the Postgres data source, which is focused on PostgreSQL databases, the Yugabyte data source gives us the ability to implement Yugabyte-specific features and tailored query capabilities.
+{{< docs/public-preview product="Grafana **Yugabyte** data source plugin" >}}
 
 ## Requirements
 
 The Yugabyte data source has the following requirements:
 
-* A YugabyteDB instance
+- A YugabyteDB instance (on-prem/cloud)
+
+## Yugabyte data source plugin vs Postgres data source plugin
+
+Opting for the Yugabyte data source over the PostgreSQL data source can provide several advantages, particularly when exclusively working with YugabyteDB clusters.
+Unlike the Postgres data source, which is focused on PostgreSQL databases, the Yugabyte data source gives us the ability to implement Yugabyte-specific features and tailored query capabilities.
 
 ## Known limitations
 
-There are no known limitations.
+- Doesn't support grafana aad-hoc filters
+- TLS / Network customization is not supported yet
 
-## Meet compatibility requirements
+## Compatibility requirements
 
-There are no compatibility requirements for the Yugabyte plugin.
+- Grafana version >= 10.0.0
