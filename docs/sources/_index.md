@@ -8,7 +8,7 @@ weight: 10
 
 The Yugabyte data source for Grafana allows you to visualize and monitor your YugabyteDB clusters.
 
-Opting for the Yugabyte data source over the PostgreSQL data source can provides several advantages, particularly when exclusively working with YugabyteDB clusters.
+Opting for the Yugabyte data source over the PostgreSQL data source can provide several advantages, particularly when exclusively working with YugabyteDB clusters.
 Unlike the Postgres data source, which is focused on PostgreSQL databases, the Yugabyte data source gives us the ability to implement Yugabyte-specific features and tailored query capabilities.
 
 ## Requirements
