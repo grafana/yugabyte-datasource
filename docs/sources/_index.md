@@ -25,7 +25,7 @@ Unlike the Postgres data source, which is focused on PostgreSQL databases, the Y
 
 ## Known limitations
 
-- Doesn't support grafana aad-hoc filters
+- Grafana ad-hoc filters are not supported
 - TLS / Network customization is not supported yet
 
 ## Compatibility requirements

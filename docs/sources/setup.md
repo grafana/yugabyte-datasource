@@ -4,13 +4,13 @@ description: This document outlines configuration options for the Yugabyte data 
 weight: 20
 hero:
   title: Configuring the Yugabyte data source plugin
-  description: This document outlines configuration options for the Yugabyte data source
+  description: This document outlines configuration options for the Yugabyte data source.
   level: 1
 ---
 
 {{< docs/hero-simple key="hero" >}}
 
-Configuring the Yugabyte plugin is a two step process
+Configuring the Yugabyte plugin is a two step process:
 
 1. Installing the yugabyte plugin
 2. Configuring the yugabyte data source
@@ -25,7 +25,7 @@ To install the Yugabyte plugin, see [Installation](https://grafana.com/grafana/p
 
 For general information on adding a data source see [Add a data source](https://grafana.com/docs/grafana/latest/administration/data-source-management/#add-a-data-source). Only users with the organization `administrator` role can add data sources.
 
-Set the yugabyte data source’s basic configuration options:
+Set the Yugabyte data source’s basic configuration options:
 
 | Name         | Description                                                                           |
 | ------------ | ------------------------------------------------------------------------------------- |
@@ -33,8 +33,8 @@ Set the yugabyte data source’s basic configuration options:
 | **Default**  | Default data source means that it will be pre-selected for new panels.                |
 | **Host URL** | The IP address/hostname and port of your Yugabyte instance.                           |
 | **Database** | Name of your Yugabyte database.                                                       |
-| **User**     | Database user's login/username                                                        |
-| **Password** | Database user's password                                                              |
+| **User**     | Database user's login/username.                                                       |
+| **Password** | Database user's password.                                                             |
 
 ### Configure the data source with provisioning
 

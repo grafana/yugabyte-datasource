@@ -4,7 +4,7 @@ description: This document describes the Yugabyte query editor
 weight: 30
 hero:
   title: Query editor
-  description: This document describes the Yugabyte query editor
+  description: This document describes the Yugabyte query editor.
   level: 1
 ---
 
