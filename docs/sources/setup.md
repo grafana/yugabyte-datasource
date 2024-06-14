@@ -1,5 +1,5 @@
 ---
-title: Configure the Yugabyte data source
+title: Configuration
 description: This document outlines configuration options for the Yugabyte data source
 weight: 20
 ---
@@ -29,7 +29,7 @@ Set the data source’s basic configuration options:
 
 It is possible to configure data sources using configuration files with Grafana’s provisioning system. To read about how it works, including and all the settings that you can set for this data source, refer to [Provisioning Grafana data sources](https://grafana.com/docs/grafana/latest/administration/provisioning/#data-sources).
 
-Here are some provisioning examples for this data source:
+Here is a provisioning example for this data source:
 
 ```yaml
 apiVersion: 1

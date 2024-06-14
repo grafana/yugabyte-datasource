@@ -1,5 +1,5 @@
 ---
-title: Yugabyte data source for Grafana
+title: Yugabyte data source
 description: This document introduces the Yugabyte data source
 weight: 10
 ---
@@ -21,6 +21,6 @@ The Yugabyte data source has the following requirements:
 
 There are no known limitations.
 
-### Meet compatibility requirements
+## Meet compatibility requirements
 
 There are no compatibility requirements for the Yugabyte plugin.
