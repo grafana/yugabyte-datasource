@@ -11,8 +11,6 @@
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "yarn run lint --fix",
-    "e2e": "yarn exec cypress install && yarn exec grafana-e2e run",
-    "e2e:update": "yarn exec cypress install && yarn exec grafana-e2e run --update-screenshots",
     "server": "docker-compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest"
   },
@@ -20,8 +18,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "@grafana/e2e": "10.0.0",
-    "@grafana/e2e-selectors": "10.0.0",
     "@grafana/eslint-config": "^6.0.0",
     "@grafana/tsconfig": "^1.2.0-rc1",
     "@swc/core": "^1.3.90",
@@ -71,6 +67,9 @@
     "react-dom": "18.2.0",
     "rxjs": "7.8.0",
     "tslib": "2.5.3"
+  },
+  "resolutions": {
+    "jackspeak": "3.4.0"
   },
   "packageManager": "yarn@1.22.19"
 }
