@@ -1,5 +1,5 @@
 # Changelog
 
-## 1.0.0 (Unreleased)
+## 0.1.0-preview
 
-Initial release.
+**Feature**: Initial release - Unlock the potential of your data with our new data source for Grafana!
