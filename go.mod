@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.236.0
-	github.com/grafana/sqlds/v2 v2.7.2
+	github.com/grafana/sqlds/v4 v4.1.0
 	github.com/jackc/pgx/v5 v5.5.5
 	github.com/stretchr/testify v1.9.0
 )
@@ -35,6 +35,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
+	github.com/grafana/dataplane/sdata v0.0.7 // indirect
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.7 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect

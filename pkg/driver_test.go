@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"testing"
 
@@ -18,7 +19,8 @@ func TestConnect(t *testing.T) {
 	message := json.RawMessage(`{}`)
 
 	ds := &Datasource{}
-	db, err := ds.Connect(settings, message)
+	ctx := context.Background()
+	db, err := ds.Connect(ctx, settings, message)
 
 	assert.NotNil(t, db, "Connect returned a nil db")
 	assert.NoError(t, err, "Connect returned an error")
