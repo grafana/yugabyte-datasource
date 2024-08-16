@@ -8,7 +8,7 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend/datasource"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
-	"github.com/grafana/sqlds/v2"
+	"github.com/grafana/sqlds/v4"
 )
 
 func main() {
@@ -20,5 +20,5 @@ func main() {
 
 func datasourceFactory(ctx context.Context, s backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
 	ds := sqlds.NewDatasource(&Datasource{})
-	return ds.NewDatasource(s)
+	return ds.NewDatasource(ctx, s)
 }

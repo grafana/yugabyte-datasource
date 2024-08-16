@@ -1,19 +1,20 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/data/sqlutil"
-	"github.com/grafana/sqlds/v2"
+	"github.com/grafana/sqlds/v4"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 type Datasource struct{}
 
-func (d *Datasource) Connect(s backend.DataSourceInstanceSettings, _ json.RawMessage) (*sql.DB, error) {
+func (d *Datasource) Connect(ctx context.Context, s backend.DataSourceInstanceSettings, _ json.RawMessage) (*sql.DB, error) {
 	settings, err := LoadSettings(s)
 	if err != nil {
 		return nil, err
@@ -40,6 +41,6 @@ func (d *Datasource) Macros() sqlds.Macros {
 	return sqlds.Macros{}
 }
 
-func (d *Datasource) Settings(s backend.DataSourceInstanceSettings) sqlds.DriverSettings {
+func (d *Datasource) Settings(ctx context.Context, s backend.DataSourceInstanceSettings) sqlds.DriverSettings {
 	return sqlds.DriverSettings{}
 }
