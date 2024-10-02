@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3-preview
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.251.0
+
+**Chore**: Bump path-to-regexp from 1.8.0 to 1.9.0
+
 ## 0.1.2-preview
 
 **Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.245.0
