@@ -29,6 +29,7 @@
     "sqlds",
     "sqlutil",
     "sslmode",
+    "uplot",
     "yugabyte"
   ]
 }
