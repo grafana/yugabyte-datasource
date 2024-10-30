@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4-preview
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.258.0
+
+**Chore**: Bump uplot to 1.6.31
+
 ## 0.1.3-preview
 
 **Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.251.0
