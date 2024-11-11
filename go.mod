@@ -1,12 +1,12 @@
 module github.com/grafana/yugabyte
 
-go 1.22
+go 1.23
 
 toolchain go1.23.2
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.259.2
-	github.com/grafana/sqlds/v4 v4.1.0
+	github.com/grafana/sqlds/v4 v4.1.4
 	github.com/jackc/pgx/v5 v5.5.5
 	github.com/stretchr/testify v1.9.0
 )
@@ -35,7 +35,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/grafana/dataplane/sdata v0.0.7 // indirect
+	github.com/grafana/dataplane/sdata v0.0.9 // indirect
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
@@ -59,11 +59,11 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
-	github.com/mitchellh/go-homedir v1.0.0 // indirect
-	github.com/mithrandie/csvq v1.17.10 // indirect
-	github.com/mithrandie/csvq-driver v1.6.8 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
+	github.com/mithrandie/csvq v1.18.1 // indirect
+	github.com/mithrandie/csvq-driver v1.7.0 // indirect
 	github.com/mithrandie/go-file/v2 v2.1.0 // indirect
-	github.com/mithrandie/go-text v1.5.4 // indirect
+	github.com/mithrandie/go-text v1.6.0 // indirect
 	github.com/mithrandie/ternary v1.1.1 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
