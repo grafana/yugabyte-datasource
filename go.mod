@@ -5,7 +5,7 @@ go 1.23
 toolchain go1.23.2
 
 require (
-	github.com/grafana/grafana-plugin-sdk-go v0.259.1
+	github.com/grafana/grafana-plugin-sdk-go v0.259.2
 	github.com/grafana/sqlds/v4 v4.1.4
 	github.com/jackc/pgx/v5 v5.5.5
 	github.com/stretchr/testify v1.9.0
