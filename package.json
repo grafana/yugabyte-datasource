@@ -70,6 +70,7 @@
   },
   "resolutions": {
     "uplot": "1.6.31",
+    "cross-spawn": "7.0.6",
     "@sentry/browser": "7.119.2",
     "jackspeak": "2.1.1"
   },
