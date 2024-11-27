@@ -7,7 +7,7 @@ import {
   updateDatasourcePluginResetOption,
 } from '@grafana/data';
 import { YugabyteOptions } from '../types';
-import { ConfigSection, DataSourceDescription } from '@grafana/experimental';
+import { ConfigSection, DataSourceDescription } from '@grafana/plugin-ui';
 
 interface Props extends DataSourcePluginOptionsEditorProps<YugabyteOptions> {}
 

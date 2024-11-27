@@ -6,8 +6,7 @@ import {
   getBackendSrv,
   toDataQueryResponse,
 } from '@grafana/runtime';
-import { LanguageCompletionProvider } from '@grafana/experimental';
-import { DB, QueryFormat, SQLSelectableValue, ValidationResults } from '@grafana/plugin-ui';
+import { DB, QueryFormat, SQLSelectableValue, ValidationResults, LanguageCompletionProvider } from '@grafana/plugin-ui';
 import { DataQuery } from '@grafana/schema';
 import { lastValueFrom, map } from 'rxjs';
 import { YugabyteQuery, YugabyteOptions } from 'types';

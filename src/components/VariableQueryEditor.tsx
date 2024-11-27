@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { SQLEditor } from '@grafana/experimental';
+import { SQLEditor } from '@grafana/plugin-ui';
 import { YugabyteDataSource } from 'datasource';
 import { YugabyteOptions, YugabyteQuery } from 'types';
 import { QueryEditorProps } from '@grafana/data';

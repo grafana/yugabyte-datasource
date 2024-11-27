@@ -4,8 +4,8 @@ import {
   LanguageCompletionProvider,
   TableDefinition,
   TableIdentifier,
-} from '@grafana/experimental';
-import { DB } from '@grafana/plugin-ui';
+  DB,
+} from '@grafana/plugin-ui';
 import { YugabyteQuery } from 'types';
 
 interface CompletionProviderGetterArgs {
