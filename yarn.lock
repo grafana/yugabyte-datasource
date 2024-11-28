@@ -1037,20 +1037,6 @@
     eslint-plugin-react-hooks "4.6.0"
     typescript "4.8.4"
 
-"@grafana/experimental@^1.7.7":
-  version "1.7.12"
-  resolved "https://registry.yarnpkg.com/@grafana/experimental/-/experimental-1.7.12.tgz#7fe0be35a4d5b242861afc5b4449dac3df761b97"
-  integrity sha512-Yp9TrfB42y/loeKqZWhuSVFgFYx6182Xx8FzrWlDdnJBmV5rlys7cX/RsIzf+6lcruJhrwtWCvACFwNeAjhPgg==
-  dependencies:
-    "@types/uuid" "^8.3.3"
-    lodash "^4.17.21"
-    prismjs "^1.29.0"
-    react-beautiful-dnd "^13.1.1"
-    react-popper-tooltip "^4.4.2"
-    react-use "^17.4.2"
-    semver "^7.5.4"
-    uuid "^8.3.2"
-
 "@grafana/faro-core@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@grafana/faro-core/-/faro-core-1.8.0.tgz#416c34672d1aa846fcb74af88d25c6cd344e9f68"
@@ -2385,11 +2371,6 @@
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
   integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
-
-"@types/uuid@^8.3.3":
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
-  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -7228,7 +7209,7 @@ react-awesome-query-builder@^5.3.1:
     spel2js "^0.2.8"
     sqlstring "^2.3.3"
 
-react-beautiful-dnd@13.1.1, react-beautiful-dnd@^13.1.1:
+react-beautiful-dnd@13.1.1:
   version "13.1.1"
   resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-13.1.1.tgz#b0f3087a5840920abf8bb2325f1ffa46d8c4d0a2"
   integrity sha512-0Lvs4tq2VcrEjEgDXHjT98r+63drkKEgqyxdA7qD3mvKwga6a5SscbdLPO2IExotU1jW8L0Ksdl0Cj2AF67nPQ==
@@ -7476,7 +7457,7 @@ react-use@17.3.1:
     ts-easing "^0.2.0"
     tslib "^2.1.0"
 
-react-use@17.5.0, react-use@^17.4.2:
+react-use@17.5.0:
   version "17.5.0"
   resolved "https://registry.yarnpkg.com/react-use/-/react-use-17.5.0.tgz#1fae45638828a338291efa0f0c61862db7ee6442"
   integrity sha512-PbfwSPMwp/hoL847rLnm/qkjg3sTRCvn6YhUZiHaUa3FA6/aNoFX79ul5Xt70O1rK+9GxSVqkY0eTwMdsR/bWg==
