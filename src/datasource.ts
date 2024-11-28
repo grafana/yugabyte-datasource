@@ -58,7 +58,7 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
    * Executes a SQL query and returns the result as a DataFrameView.
    * Used for running meta queries to fetch table and column names.
    */
-  async runSql<T>(query: string, options?: RunSQLOptions): Promise<DataFrameView<T>> {
+  async runSql<T extends object>(query: string, options?: RunSQLOptions): Promise<DataFrameView<T>> {
     const frame = await this.runMetaQuery(
       {
         rawSql: query,
