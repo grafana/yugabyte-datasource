@@ -1068,10 +1068,10 @@
     ua-parser-js "^1.0.32"
     web-vitals "^4.0.1"
 
-"@grafana/plugin-ui@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@grafana/plugin-ui/-/plugin-ui-0.9.1.tgz#87f382191cdcb08a0ccfe04a963bf83f563a604b"
-  integrity sha512-XzPVgljmJuRhHl+VUbtOJrdM0X57iMSoag4Ol0LrycZQ+JvnWNZrCnJHWMX5EbpN4WBLj6/QKt3w7FmPgBiEHw==
+"@grafana/plugin-ui@^0.9.2":
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/@grafana/plugin-ui/-/plugin-ui-0.9.2.tgz#af32ea54e2f349ed7ad36823b21a1c3ae8acbc5f"
+  integrity sha512-i5MMtdtQbHIKXSXaCR0QcL6OLrqMEYn3eOyZWhkT+1XrkwkIyNfsR7Kw7Ddtx8R7x90YAjEYJqJ1qW5UlH93Iw==
   dependencies:
     "@hello-pangea/dnd" "^17.0.0"
     lodash "^4.17.21"
