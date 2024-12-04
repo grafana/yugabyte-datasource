@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5-preview
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.260.1
+
+**Chore**: Bump cross-spawn to 7.0.6
+
+**Chore**: Change grafana/experimental to grafana/plugin-ui
+
 ## 0.1.4-preview
 
 **Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.258.0
