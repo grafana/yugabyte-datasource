@@ -19,5 +19,5 @@ The query builder provides a visual interface for constructing queries. It simpl
 
 ## Raw query editor
 
-For users seeking more advanced querying capabilities or those with a deeper understanding of SQL, the raw query editor offers the flexibility to directly write SQL queries. This allows users to create complex queries that may not be supported by the query builder.
+For users seeking more advanced querying capabilities or those with a deeper understanding of SQL, the raw query editor offers the flexibility to directly write SQL queries. This allows users to create complex queries that may not be supported by the query builder. The raw query editor also provides syntax highlighting and error checking to help users write queries more efficiently.
 ![Yugabyte Code Editor](/media/docs/yugabyte/yugabyte_explore_code.png)
