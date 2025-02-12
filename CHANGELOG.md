@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7-preview
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.265.0
+
 ## 0.1.6-preview
 
 **Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.261.0
