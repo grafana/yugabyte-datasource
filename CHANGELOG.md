@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+**Feature**: PDC frontend support
+
 ## 1.1.0
 
 **Feature**: PDC support
