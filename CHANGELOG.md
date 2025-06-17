@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+**Feature**: PDC support
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.277.1
+
 ## 1.0.0
 
 **Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.274.0
