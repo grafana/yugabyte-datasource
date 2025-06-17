@@ -1,35 +1,19 @@
 import React, { SyntheticEvent } from 'react';
-import { Field, Input, SecretInput, Switch, useTheme2 } from '@grafana/ui';
+import { Field, Input, SecretInput } from '@grafana/ui';
 import {
   DataSourcePluginOptionsEditorProps,
   onUpdateDatasourceJsonDataOption,
   onUpdateDatasourceSecureJsonDataOption,
   updateDatasourcePluginResetOption,
-  GrafanaTheme2,
 } from '@grafana/data';
 import { YugabyteOptions } from '../types';
-import { ConfigSection, DataSourceDescription } from '@grafana/plugin-ui';
-import { config } from '@grafana/runtime';
-import { css } from '@emotion/css';
+import { ConfigSection, DataSourceDescription, SecureSocksProxyToggle } from '@grafana/plugin-ui';
 
 interface Props extends DataSourcePluginOptionsEditorProps<YugabyteOptions> {}
-
-const getStyles = (theme: GrafanaTheme2) => ({
-  toggle: css`
-    margin-top: 7px;
-    margin-left: 5px;
-  `,
-  infoText: css`
-    padding-bottom: ${theme.spacing(1)};
-    color: ${theme.colors.text.secondary};
-  `,
-});
 
 export function ConfigEditor(props: Props) {
   const { onOptionsChange, options } = props;
   const ELEMENT_WIDTH = 40;
-  const theme = useTheme2();
-  const styles = getStyles(theme);
 
   // BUG: when delete "url" value and save, it will reset to the previous value??
   const onDSOptionChanged = (property: keyof YugabyteOptions) => {
@@ -96,39 +80,7 @@ export function ConfigEditor(props: Props) {
       </ConfigSection>
 
       <ConfigSection title="Additional Settings" isCollapsible>
-        {config.secureSocksDSProxyEnabled && (
-          <>
-            <div className="gf-form-group">
-              <h3 className="page-heading">Secure Socks Proxy</h3>
-              <div className={styles.infoText}>
-                Enable proxying the datasource connection through the secure socks proxy to a different network. See{' '}
-                <a
-                  href="https://grafana.com/docs/grafana/next/setup-grafana/configure-grafana/proxy/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Configure a data source connection proxy.
-                </a>
-              </div>
-              <Field label="Enable">
-                <div className={styles.toggle}>
-                  <Switch
-                    value={options.jsonData.enableSecureSocksProxy}
-                    onChange={(e) => {
-                      onOptionsChange({
-                        ...options,
-                        jsonData: {
-                          ...options.jsonData,
-                          enableSecureSocksProxy: e.currentTarget.checked,
-                        },
-                      });
-                    }}
-                  />
-                </div>
-              </Field>
-            </div>
-          </>
-        )}
+        <SecureSocksProxyToggle labelWidth={30} dataSourceConfig={options} onChange={onOptionsChange} />
       </ConfigSection>
     </>
   );
