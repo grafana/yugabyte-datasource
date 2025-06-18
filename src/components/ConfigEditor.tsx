@@ -7,7 +7,7 @@ import {
   updateDatasourcePluginResetOption,
 } from '@grafana/data';
 import { YugabyteOptions } from '../types';
-import { ConfigSection, DataSourceDescription } from '@grafana/plugin-ui';
+import { ConfigSection, DataSourceDescription, SecureSocksProxyToggle } from '@grafana/plugin-ui';
 
 interface Props extends DataSourcePluginOptionsEditorProps<YugabyteOptions> {}
 
@@ -77,6 +77,10 @@ export function ConfigEditor(props: Props) {
             onBlur={onUpdateDatasourceSecureJsonDataOption(props, 'password')}
           />
         </Field>
+      </ConfigSection>
+
+      <ConfigSection title="Additional Settings" isCollapsible>
+        <SecureSocksProxyToggle labelWidth={30} dataSourceConfig={options} onChange={onOptionsChange} />
       </ConfigSection>
     </>
   );
