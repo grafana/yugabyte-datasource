@@ -2,7 +2,7 @@ version: '3.0'
 
 services:
   yugabyte:
-    image: yugabytedb/yugabyte:latest
+    image: yugabytedb/yugabyte:latest@sha256:f1b868431c9f71013f451df8cc63c59886568bb1254e4cb6f98de14d0232a3ad
     container_name: yugabyte
     command: bin/yugabyted start --daemon=false --initial_scripts_dir=/var/ybinit --tserver_flags=ysql_enable_auth=false
     volumes:
@@ -10,7 +10,7 @@ services:
     ports:
       - 5433:5433
   grafana:
-    image: grafana/grafana-enterprise:main
+    image: grafana/grafana-enterprise:main@sha256:d59e144eaeb3363a6d3564734b0f0cef154b44f9432188c06e0ff43b91a94c3e
     container_name: grafana-yugabyte-datasource
     depends_on:
       - yugabyte
