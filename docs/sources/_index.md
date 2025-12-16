@@ -31,3 +31,5 @@ Unlike the Postgres data source, which is focused on PostgreSQL databases, the Y
 ## Compatibility requirements
 
 - Grafana version >= 10.4.5
+
+{{< section >}}
