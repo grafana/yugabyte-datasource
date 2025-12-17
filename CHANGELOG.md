@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0
+
+**Feature**: Set minimum supported Grafana version to 11.6.0
+
+**Chore**: Bump github.com/grafana/grafana-plugin-sdk-go v0.284.0
+
+**Chore**: Bump frontend dependencies
+
 ## 1.2.0
 
 **Feature**: PDC frontend support
