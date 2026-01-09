@@ -37,7 +37,7 @@ export default defineConfig([
     },
 
     rules: {
-      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/exhaustive-deps': 'error',
       'prettier/prettier': 'error',
     },
   },
