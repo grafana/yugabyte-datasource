@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+🐛 Update dependency versions
+
 ## 2.0.0
 
 **Feature**: Set minimum supported Grafana version to 11.6.0
