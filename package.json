@@ -19,6 +19,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "7.28.5",
+    "@changesets/cli": "^2.29.8",
     "@grafana/e2e-selectors": "12.3.1",
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.1.0",
@@ -82,6 +83,9 @@
     "react-dom": "18.3.1",
     "rxjs": "7.8.2",
     "tslib": "2.8.1"
+  },
+  "resolutions": {
+    "@remix-run/router": "^1.23.2"
   },
   "packageManager": "yarn@4.12.0"
 }
