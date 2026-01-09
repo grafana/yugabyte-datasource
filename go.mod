@@ -1,6 +1,6 @@
 module github.com/grafana/yugabyte
 
-go 1.25.5
+go 1.25
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.284.0
