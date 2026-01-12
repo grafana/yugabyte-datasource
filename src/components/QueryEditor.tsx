@@ -7,5 +7,5 @@ import { SqlDatasource, SqlQueryEditor } from '@grafana/plugin-ui';
 type Props = QueryEditorProps<YugabyteDataSource, YugabyteQuery, YugabyteOptions>;
 
 export function QueryEditor(props: Props) {
-  return <SqlQueryEditor {...props} datasource={props.datasource as unknown as SqlDatasource}  />;
+  return <SqlQueryEditor {...props} datasource={props.datasource as unknown as SqlDatasource} />;
 }
