@@ -3,7 +3,7 @@ module github.com/grafana/yugabyte
 go 1.25.6
 
 require (
-	github.com/grafana/grafana-plugin-sdk-go v0.287.0
+	github.com/grafana/grafana-plugin-sdk-go v0.288.0
 	github.com/grafana/sqlds/v5 v5.0.4
 	github.com/jackc/pgx/v5 v5.8.0
 	github.com/stretchr/testify v1.11.1
