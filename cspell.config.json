@@ -7,20 +7,26 @@
     "node_modules/**",
     "provisioning/**/*.yaml",
     "src/dashboards/*.json",
-    "**/testdata/**/*.json",
-    "**/testdata/**/*.jsonc",
+    "**/testdata/**/*.{json,jsonc}",
     "vendor/**",
     "cspell.config.json",
     "package.json",
+    "renovate.json",
     "yarn.lock",
-    "docker-compose*.yaml",
-    "docker-compose*.yml"
+    "docker-compose*.{yml,yaml}"
   ],
   "ignoreRegExpList": [
-    // ignore multiline imports
     "import\\s*\\((.|[\r\n])*?\\)",
-    // ignore single line imports
     "import\\s*.*\".*?\""
   ],
-  "words": ["datasource", "instancemgmt", "sqlds", "sqlutil", "sslmode", "uplot", "yugabyte", "stdlib"]
+  "words": [
+    "datasource",
+    "instancemgmt",
+    "sqlds",
+    "sqlutil",
+    "sslmode",
+    "uplot",
+    "yugabyte",
+    "stdlib"
+  ]
 }
