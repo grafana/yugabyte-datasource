@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+🚀 Update dependencies for react-19 preparations
+
 ## 2.0.1
 
 🐛 Update dependency versions
