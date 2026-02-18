@@ -2,11 +2,7 @@
 
 ## 2.1.0
 
-### Minor Changes
-
 🚀 Update dependencies for react-19 preparations
-
-### Patch Changes
 
 ## 2.0.1
 
