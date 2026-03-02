@@ -1,3 +1,4 @@
+import { lastValueFrom, map } from 'rxjs';
 import { DataFrame, DataFrameView, DataSourceInstanceSettings, ScopedVars, TimeRange } from '@grafana/data';
 import {
   BackendDataSourceResponse,
@@ -6,15 +7,14 @@ import {
   getBackendSrv,
   toDataQueryResponse,
 } from '@grafana/runtime';
-import { DB, QueryFormat, SQLSelectableValue, ValidationResults, LanguageCompletionProvider } from '@grafana/plugin-ui';
 import { DataQuery } from '@grafana/schema';
-import { lastValueFrom, map } from 'rxjs';
-import { YugabyteQuery, YugabyteOptions } from 'types';
+import { DB, QueryFormat, SQLSelectableValue, ValidationResults, LanguageCompletionProvider } from '@grafana/plugin-ui';
+import { YugabyteVariableSupport } from './variables';
 import { buildColumnQuery, buildTableQuery } from './utils/queries';
 import { completionFetchColumns, completionFetchTables, getCompletionProvider } from './utils/completion';
 import { AGGREGATE_FNS } from './utils/constants';
-import { YugabyteVariableSupport } from 'variables';
-import { replace } from 'utils/variables';
+import { replace } from './utils/variables';
+import type { YugabyteQuery, YugabyteOptions } from './types';
 
 export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, YugabyteOptions> {
   annotations = {};
@@ -128,7 +128,7 @@ export class YugabyteDataSource extends DataSourceWithBackend<YugabyteQuery, Yug
       return this.db;
     }
     return {
-      dsID: () => this.id,
+      dsID: () => this.id || 0,
       lookup: () => Promise.resolve([]),
       datasets: () => Promise.resolve([]),
       functions: async () => Promise.resolve(AGGREGATE_FNS),
