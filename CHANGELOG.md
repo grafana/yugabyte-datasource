@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1
+
+⚙️ Updated backend/go version to 1.26.0 from 1.25.6 which resolves CVE-2025-68121
+
+⚙️ Updated frontend & backend dependencies
+
 ## 2.1.0
 
 🚀 Update dependencies for react-19 preparations
