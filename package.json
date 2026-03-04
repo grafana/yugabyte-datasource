@@ -1,7 +1,7 @@
 {
   "name": "yugabyte",
   "version": "2.1.1",
-  "description": "Yugabyte datasource plugin for grafana",
+  "description": "Yugabyte data source plugin for grafana",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
@@ -23,7 +23,7 @@
     "@changesets/cli": "2.29.8",
     "@grafana/e2e-selectors": "12.4.0",
     "@grafana/eslint-config": "9.0.0",
-    "@grafana/plugin-e2e": "3.4.0",
+    "@grafana/plugin-e2e": "3.4.1",
     "@grafana/tsconfig": "2.0.1",
     "@openfeature/web-sdk": "^1.7.3",
     "@playwright/test": "1.58.2",
