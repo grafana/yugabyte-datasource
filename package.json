@@ -1,7 +1,7 @@
 {
   "name": "yugabyte",
   "version": "2.1.1",
-  "description": "Yugabyte datasource plugin for grafana",
+  "description": "Yugabyte data source plugin for grafana",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
