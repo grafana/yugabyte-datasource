@@ -1,6 +1,6 @@
 services:
   yugabyte:
-    image: yugabytedb/yugabyte:latest@sha256:79627ef84293cddfb606cb23ca2b45f1cbeea7a6407499b30521112eb618f9ba
+    image: yugabytedb/yugabyte:latest@sha256:b371cade8b22d223657580b3c15be6ba89315d27cf04eec1b29a44a01752a3fd
     container_name: yugabyte
     command: bin/yugabyted start --daemon=false --initial_scripts_dir=/var/ybinit --tserver_flags=ysql_enable_auth=false
     volumes:
