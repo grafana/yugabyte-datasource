@@ -59,14 +59,21 @@ jobs:
         run: yarn changeset version
 
       - name: Commit and push changes
+        id: commit-and-push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "chore: release" || echo "No changes to commit"
-          git push
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: release"
+            git push
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Trigger publish workflow
+        if: steps.commit-and-push.outputs.has_changes == 'true'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ steps.get-github-token.outputs.token }}
