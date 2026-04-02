@@ -89,7 +89,7 @@
   "resolutions": {
     "@remix-run/router": "^1.23.2",
     "@openfeature/core": "1.9.2",
-    "lodash": "4.17.23",
+    "lodash": "4.18.1",
     "minimatch": "10.2.4",
     "serialize-javascript": "7.0.5"
   },
