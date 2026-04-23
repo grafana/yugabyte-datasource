@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.290.1
 	github.com/grafana/sqlds/v5 v5.1.0
-	github.com/jackc/pgx/v5 v5.9.1
+	github.com/jackc/pgx/v5 v5.9.2
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/net v0.52.0
 )
