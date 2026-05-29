@@ -1,6 +1,7 @@
 module github.com/grafana/yugabyte
 
 go 1.26.3
+
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.292.0
 	github.com/grafana/sqlds/v5 v5.1.1
