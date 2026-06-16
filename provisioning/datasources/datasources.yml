@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: '❌ yugabyte (default)'
+    uid: yugabyte-default
+    type: grafana-yugabyte-datasource
+  - name: '✅ yugabyte (valid)'
+    uid: yugabyte
+    type: grafana-yugabyte-datasource
+    isDefault: true
+    url: yugabyte:5433
+    user: yugabyte
+    jsonData:
+      database: yugabyte
+    secureJsonData:
+      password: yugabyte

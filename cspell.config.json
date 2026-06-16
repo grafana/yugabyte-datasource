@@ -1,0 +1,32 @@
+{
+  "ignorePaths": [
+    "coverage/**",
+    "dist/**",
+    "go.sum",
+    "mage_output_file.go",
+    "node_modules/**",
+    "provisioning/**/*.yaml",
+    "src/dashboards/*.json",
+    "**/testdata/**/*.{json,jsonc}",
+    "vendor/**",
+    "cspell.config.json",
+    "package.json",
+    "renovate.json",
+    "yarn.lock",
+    "docker-compose*.{yml,yaml}"
+  ],
+  "ignoreRegExpList": [
+    "import\\s*\\((.|[\r\n])*?\\)",
+    "import\\s*.*\".*?\""
+  ],
+  "words": [
+    "datasource",
+    "instancemgmt",
+    "sqlds",
+    "sqlutil",
+    "sslmode",
+    "uplot",
+    "yugabyte",
+    "stdlib"
+  ]
+}

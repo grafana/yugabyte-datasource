@@ -1,0 +1,16 @@
+services:
+  yugabyte:
+    image: yugabytedb/yugabyte:latest@sha256:9d7143b1742bad1fc0564b4edd0310377cc36336a64ab6c70b26605c491671ed
+    container_name: yugabyte
+    command: bin/yugabyted start --daemon=false --initial_scripts_dir=/var/ybinit --tserver_flags=ysql_enable_auth=false
+    volumes:
+      - ./provisioning/yugabyte:/var/ybinit
+    ports:
+      - 5433:5433
+  grafana:
+    build:
+      args:
+        grafana_version: ${GRAFANA_VERSION:-main}
+    extends:
+      file: .config/docker-compose-base.yaml
+      service: grafana
