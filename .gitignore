@@ -27,3 +27,4 @@ mage_output_file.go
 !.yarn/versions
 
 .DS_Store
+*.log
