@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
     "lint": "eslint --cache .",
-    "lint:fix": "yarn run lint --fix && prettier --write --list-different .",
+    "lint:fix": "npm run lint -- --fix && prettier --write --list-different .",
     "server": "docker compose up --build",
     "sign": "sign-plugin"
   },
@@ -81,9 +81,9 @@
     "react-dom": "18.3.1",
     "rxjs": "7.8.2"
   },
-  "packageManager": "yarn@4.17.1",
+  "packageManager": "npm@11.18.0",
   "engines": {
     "node": ">=24",
-    "yarn": ">=4.15.0"
+    "npm": ">=11.12.1"
   }
 }
