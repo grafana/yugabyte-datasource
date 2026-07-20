@@ -12,7 +12,7 @@
     "cspell.config.json",
     "package.json",
     "renovate.json",
-    "yarn.lock",
+    "package-lock.json",
     "docker-compose*.{yml,yaml}"
   ],
   "ignoreRegExpList": [
