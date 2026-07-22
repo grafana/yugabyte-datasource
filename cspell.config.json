@@ -13,7 +13,8 @@
     "package.json",
     "renovate.json",
     "yarn.lock",
-    "docker-compose*.{yml,yaml}"
+    "docker-compose*.{yml,yaml}",
+    "jest.config.js"
   ],
   "ignoreRegExpList": [
     "import\\s*\\((.|[\r\n])*?\\)",
