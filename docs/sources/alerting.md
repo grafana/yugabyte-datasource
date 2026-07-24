@@ -37,6 +37,7 @@ Alert rules evaluate query results to determine whether a condition is met. Yuga
 - **Numeric results:** The query must return at least one numeric column for Grafana to evaluate against a threshold or condition.
 - **Reduce to a single value:** Add a **Reduce** expression to collapse a time series into a single number that the alert condition can evaluate.
 - **Time filtering:** Use the `$__timeFilter(column)` macro so the query only evaluates data within the alert's evaluation window.
+- **One series per alert instance:** If the query returns multiple series, for example by adding a `GROUP BY service` column, Grafana creates a separate alert instance for each series. Return a single series unless you intend to alert on each series independently.
 
 You can combine multiple queries (A, B, C) with Reduce and Math expressions to build complex alert conditions. Refer to [Queries and conditions](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/alerting/fundamentals/alert-rules/queries-conditions/) for details.
 
@@ -63,7 +64,9 @@ The following examples show SQL queries suitable for alert rules.
 This query returns the number of errors over time for a specific service:
 
 ```sql
-SELECT created_at AS time, count(*) AS errors
+SELECT
+  date_trunc('minute', created_at) AS time,
+  count(*) AS errors
 FROM logs
 WHERE level = 'error' AND $__timeFilter(created_at)
 GROUP BY time
@@ -77,7 +80,9 @@ Configure a **Reduce** expression with **Last** to get the most recent value, th
 This query returns average response time, which is useful for detecting latency degradation:
 
 ```sql
-SELECT created_at AS time, avg(response_time) AS avg_response_time
+SELECT
+  date_trunc('minute', created_at) AS time,
+  avg(response_time) AS avg_response_time
 FROM requests
 WHERE service = 'checkout' AND $__timeFilter(created_at)
 GROUP BY time
@@ -93,7 +98,9 @@ You can use multiple queries to compare values. For example, to alert when the e
 **Query A** -- error count:
 
 ```sql
-SELECT created_at AS time, count(*) AS errors
+SELECT
+  date_trunc('minute', created_at) AS time,
+  count(*) AS errors
 FROM logs
 WHERE level = 'error' AND $__timeFilter(created_at)
 GROUP BY time
@@ -103,7 +110,9 @@ ORDER BY time
 **Query B** -- total request count:
 
 ```sql
-SELECT created_at AS time, count(*) AS requests
+SELECT
+  date_trunc('minute', created_at) AS time,
+  count(*) AS requests
 FROM logs
 WHERE $__timeFilter(created_at)
 GROUP BY time
