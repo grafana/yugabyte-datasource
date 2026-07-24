@@ -39,10 +39,11 @@ The Yugabyte data source supports the following variable types:
 | Query | Yes |
 | Custom | Yes |
 | Data source | Yes |
+| Ad hoc filters | No |
 
 ## Create a query variable
 
-The variable query editor uses the same SQL editor as the main query editor, including syntax highlighting and autocomplete.
+The variable query editor is a raw SQL editor with syntax highlighting and autocomplete. It's the same editor as the query editor's **Code** mode and doesn't include the visual builder.
 
 To create a query variable:
 
@@ -51,7 +52,7 @@ To create a query variable:
 1. Select **Query** as the variable type.
 1. Select the **Yugabyte** data source.
 1. Enter a SQL query that returns the values you want to use.
-1. Click **Run query** to preview the values.
+1. Grafana shows a preview of the returned values below the query editor.
 
 ## Query return format
 
@@ -60,7 +61,9 @@ Grafana determines variable values from the columns your query returns:
 | Columns returned | Behavior |
 |------------------|----------|
 | One column | Each value is used as both the display text and the variable value. |
-| Columns named `__text` and `__value` | The `__text` column provides the display text and the `__value` column provides the substituted value. |
+| A column named `text` and a column named `value` | The `text` column provides the display text and the `value` column provides the substituted value. |
+
+Grafana matches the `text` and `value` columns by name, and both must be string columns. Cast numeric columns to text with `::text`, for example `id::text AS value`.
 
 ### Single-column example
 
@@ -75,10 +78,10 @@ SELECT DISTINCT region FROM sales ORDER BY region
 This query displays a human-readable name while substituting an ID into queries:
 
 ```sql
-SELECT name AS __text, id AS __value FROM customers ORDER BY name
+SELECT name AS text, id::text AS value FROM customers ORDER BY name
 ```
 
-The variable drop-down displays `name` values, but the selected `id` is substituted into queries.
+The variable drop-down displays `name` values, but the selected `id` is substituted into queries. The `id` column is cast to text with `::text` so Grafana recognizes it as the `value` column.
 
 ## Use variables in queries
 
@@ -97,6 +100,18 @@ For numeric values, omit the quotes:
 ```sql
 SELECT * FROM orders WHERE total > $threshold
 ```
+
+## Chained variables
+
+You can build chained, or dependent, variables where one variable's query filters on the value selected in another variable. Because variable queries also expand template variables, you can reference an existing variable inside a query variable's SQL.
+
+For example, if you have a `region` variable, create a dependent `city` variable that only lists cities in the selected region:
+
+```sql
+SELECT DISTINCT city FROM stores WHERE region = '$region' ORDER BY city
+```
+
+When you change the `region` selection, Grafana re-runs the `city` query and updates its available values.
 
 ## Multi-value variables
 
