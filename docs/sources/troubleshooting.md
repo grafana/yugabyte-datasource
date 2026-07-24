@@ -42,7 +42,7 @@ These errors occur when Grafana can't reach your YugabyteDB instance.
 |-------|----------|
 | YugabyteDB isn't reachable from Grafana | Verify network connectivity from the Grafana server to the YugabyteDB host and port. The default YSQL port is `5433`. |
 | Firewall blocks the connection | Allow outbound access from Grafana to the YugabyteDB host and port. |
-| Private network | For Grafana Cloud, enable [Secure Socks Proxy](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/#secure-socks-proxy) and configure [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/). |
+| Private network | For Grafana Cloud, configure [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/) and select a PDC network in the data source's [Private data source connect](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/#private-data-source-connect) settings. |
 
 ### "missing port in address"
 
@@ -142,17 +142,17 @@ These errors occur when you use template variables with the data source.
 1. Confirm you use the variable with the `IN` operator and without extra quotes, for example `status IN ($status)`.
 1. Remember that multi-value variables expand to a single-quoted list, so they're intended for string columns. For numeric columns, cast the column or use string comparisons.
 
-## Secure Socks Proxy issues
+## Private data source connect issues
 
-These issues occur when you route the connection through Secure Socks Proxy for Private data source connect.
+These issues occur when you query a YugabyteDB instance through Private data source connect (PDC) on Grafana Cloud.
 
-### Connection fails only when the proxy is enabled
+### Connection fails only when a PDC network is selected
 
 **Solutions:**
 
 1. Confirm that [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/) is set up and the PDC agent is running.
 1. Verify the PDC agent can reach the YugabyteDB host and port on the private network.
-1. Because host name resolution happens on the proxy side when the proxy is enabled, confirm the host name resolves from the network where the PDC agent runs.
+1. Because host name resolution happens on the PDC side, confirm the host name resolves from the network where the PDC agent runs.
 
 ## Enable debug logging
 
