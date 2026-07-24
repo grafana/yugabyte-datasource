@@ -1,0 +1,122 @@
+---
+aliases:
+  - /docs/plugins/grafana-yugabyte-datasource/latest/template-variables/
+  - /docs/plugins/grafana-yugabyte-datasource/template-variables/
+description: Use template variables with the Yugabyte data source in Grafana
+keywords:
+  - grafana
+  - yugabyte
+  - yugabytedb
+  - template variables
+  - dashboard variables
+  - sql
+labels:
+  products:
+    - cloud
+    - enterprise
+    - oss
+menuTitle: Template variables
+title: Yugabyte template variables
+weight: 40
+review_date: "2026-07-24"
+---
+
+# Yugabyte template variables
+
+Use template variables to create dynamic, reusable dashboards that let you change query parameters without editing individual panels. For general information about template variables, refer to [Templates and variables](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/dashboards/variables/).
+
+## Before you begin
+
+- [Configure the Yugabyte data source](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/).
+- Understand [Grafana template variables](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/dashboards/variables/).
+
+## Supported variable types
+
+The Yugabyte data source supports the following variable types:
+
+| Variable type | Supported |
+|---------------|-----------|
+| Query | Yes |
+| Custom | Yes |
+| Data source | Yes |
+
+## Create a query variable
+
+The variable query editor uses the same SQL editor as the main query editor, including syntax highlighting and autocomplete.
+
+To create a query variable:
+
+1. Navigate to **Dashboard settings** > **Variables**.
+1. Click **Add variable**.
+1. Select **Query** as the variable type.
+1. Select the **Yugabyte** data source.
+1. Enter a SQL query that returns the values you want to use.
+1. Click **Run query** to preview the values.
+
+## Query return format
+
+Grafana determines variable values from the columns your query returns:
+
+| Columns returned | Behavior |
+|------------------|----------|
+| One column | Each value is used as both the display text and the variable value. |
+| Columns named `__text` and `__value` | The `__text` column provides the display text and the `__value` column provides the substituted value. |
+
+### Single-column example
+
+This query returns a list of distinct regions for use as variable values:
+
+```sql
+SELECT DISTINCT region FROM sales ORDER BY region
+```
+
+### Text and value example
+
+This query displays a human-readable name while substituting an ID into queries:
+
+```sql
+SELECT name AS __text, id AS __value FROM customers ORDER BY name
+```
+
+The variable drop-down displays `name` values, but the selected `id` is substituted into queries.
+
+## Use variables in queries
+
+Reference template variables in your SQL queries using the `$variable` or `${variable}` syntax. Single-value string variables are substituted as-is, so include quotes around string values in your query:
+
+```sql
+SELECT created_at AS time, count(*) AS orders
+FROM orders
+WHERE region = '$region' AND $__timeFilter(created_at)
+GROUP BY time
+ORDER BY time
+```
+
+For numeric values, omit the quotes:
+
+```sql
+SELECT * FROM orders WHERE total > $threshold
+```
+
+## Multi-value variables
+
+When a variable allows multiple selections, the Yugabyte data source formats the values as a comma-separated, single-quoted list. For example, if you select `pending`, `shipped`, and `delivered`, the variable expands to `'pending','shipped','delivered'`.
+
+Use multi-value variables with the `IN` operator, and don't add quotes around the variable:
+
+```sql
+SELECT * FROM orders WHERE status IN ($status)
+```
+
+If you select `pending` and `shipped`, this expands to:
+
+```sql
+SELECT * FROM orders WHERE status IN ('pending','shipped')
+```
+
+Because the values are always single-quoted, this format is intended for string columns. For numeric columns, use string comparisons or cast the column as needed.
+
+## Next steps
+
+- Learn how to write queries in the [Yugabyte query editor](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/query-editor/).
+- [Set up alerting](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/alerting/) on your YugabyteDB data.

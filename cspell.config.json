@@ -23,10 +23,13 @@
   "words": [
     "datasource",
     "instancemgmt",
+    "libpq",
+    "PDC",
     "sqlds",
     "sqlutil",
     "sslmode",
     "uplot",
+    "YSQL",
     "yugabyte",
     "stdlib"
   ]
