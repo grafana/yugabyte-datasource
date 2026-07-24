@@ -105,7 +105,7 @@ These errors occur when you run a query against the data source.
 1. Narrow the dashboard time range to reduce the amount of data scanned.
 1. Add `WHERE` filters to reduce the result set.
 1. Add indexes in YugabyteDB for the columns used in filters and time ranges.
-1. Use `$__timeGroup()` to aggregate rows into buckets instead of returning raw rows.
+1. Use `date_trunc()` to aggregate rows into time buckets instead of returning raw rows. The `$__timeGroup()` macro isn't compatible with YugabyteDB.
 
 ### Results don't render as a time series
 
@@ -129,7 +129,7 @@ These errors occur when you use template variables with the data source.
 
 1. Verify the data source connection by running **Save & test** on the configuration page.
 1. Confirm the variable query returns at least one column. Refer to [Query return format](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/template-variables/#query-return-format).
-1. For cascading variables, confirm that parent variables have valid selections.
+1. For chained variables, confirm that parent variables have valid selections.
 
 ### Multi-value variables don't match rows
 
