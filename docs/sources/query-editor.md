@@ -40,17 +40,18 @@ The query builder provides a visual interface for constructing queries. You sele
 
 {{< figure src="/media/docs/yugabyte/yugabyte_explore_builder.png" max-width="800px" class="docs-image--no-shadow" caption="The Yugabyte query builder" >}}
 
-The builder supports the following options:
+The builder toolbar includes a **Format** drop-down and **Filter**, **Group**, **Order**, and **Preview** toggles that show or hide the corresponding sections. Configure your query with these options:
 
 | Option | Description |
 |--------|-------------|
 | **Table** | The table to query. The list is populated from the base tables in the configured database. |
-| **Column** | The columns to return. You can select multiple columns and apply an aggregation function to a column. |
-| **Aggregation** | An aggregation function to apply to a column: `AVG`, `COUNT`, `MAX`, `MIN`, or `SUM`. |
-| **Filter** | One or more `WHERE` conditions to limit the rows returned. |
-| **Group** | The columns to group by, typically used with an aggregation. |
-| **Order** | The column and direction used to sort the results, with an optional row limit. |
-| **Preview** | A read-only preview of the generated SQL. Switch to **Code** to edit the SQL directly. |
+| **Column** | The columns to return. Click **+** to add more columns. |
+| **Aggregation** | Optional. An aggregation function to apply to the column: `AVG`, `COUNT`, `MAX`, `MIN`, or `SUM`. |
+| **Filter by column value** | Optional. One or more `WHERE` conditions to limit the rows returned. Enable the **Filter** toggle to show this section. |
+| **Group by column** | The columns to group by, typically used with an aggregation. Enable the **Group** toggle to show this section. |
+| **Order by** | The column and direction used to sort the results. Enable the **Order** toggle to show this section. |
+| **Limit** | Optional. The maximum number of rows to return. Defaults to `50`. |
+| **Preview** | Enable the **Preview** toggle to show a read-only preview of the generated SQL. Switch to **Code** to edit the SQL directly. |
 
 {{< admonition type="note" >}}
 The Yugabyte data source queries a single database, which you set on the [configuration page](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/). The builder doesn't include a schema or dataset selector.
@@ -66,25 +67,26 @@ Autocomplete suggests table names from the configured database and column names 
 
 ## Format the query results
 
-Use the **Format** option to control how Grafana interprets the query results:
+Use the **Format** drop-down at the top of the query editor to control how Grafana interprets the query results:
 
 - **Table:** Returns the results as a table. Use this format for table panels or for exploring raw data.
 - **Time series:** Returns the results as a time series. Your query must return a time-ordered column of `time` or `timestamp` type and at least one numeric column. Sort the results by the time column in ascending order.
 
 ## Macros
 
-Macros are shorthand that Grafana expands into SQL before running the query. They let you write queries that respond to the dashboard time range and interval.
+Macros are shorthand that Grafana expands into SQL before it runs the query. They let you write queries that respond to the dashboard time range. The Yugabyte data source supports the standard SQL macros:
 
 | Macro | Description |
 |-------|-------------|
-| `$__timeFilter(column)` | Expands to a time-range condition on `column` using the dashboard time range, for example `column BETWEEN '...' AND '...'`. |
-| `$__timeFrom()` | Expands to the start of the dashboard time range. |
-| `$__timeTo()` | Expands to the end of the dashboard time range. |
-| `$__timeGroup(column, interval)` | Groups rows into time buckets of size `interval` based on `column`. |
-| `$__interval` | Expands to the dashboard's calculated interval as a duration. |
-| `$__interval_ms` | Expands to the dashboard's calculated interval in milliseconds. |
-| `$__table` | Expands to the table referenced by the query. |
-| `$__column` | Expands to the column referenced by the query. |
+| `$__timeFilter(column)` | Expands to a time-range condition on `column` using the dashboard time range, for example `column >= '2026-01-01T00:00:00Z' AND column <= '2026-01-02T00:00:00Z'`. |
+| `$__timeFrom(column)` | Expands to a lower-bound condition on `column`, for example `column >= '2026-01-01T00:00:00Z'`. |
+| `$__timeTo(column)` | Expands to an upper-bound condition on `column`, for example `column <= '2026-01-02T00:00:00Z'`. |
+| `$__interval` | Expands to the dashboard's calculated interval as a duration string, for example `10m`. |
+| `$__interval_ms` | Expands to the dashboard's calculated interval in milliseconds, for example `600000`. |
+
+{{< admonition type="caution" >}}
+To group results into time buckets, use a native YugabyteDB function such as `date_trunc()`. Avoid the `$__timeGroup` macro, because it generates `datepart()` syntax that isn't compatible with YugabyteDB.
+{{< /admonition >}}
 
 ## Query examples
 
@@ -92,11 +94,11 @@ The following examples show common queries written in the Code editor.
 
 ### Return a time series
 
-This query returns a numeric metric over time, formatted as a time series:
+This query counts rows per minute and returns the result as a time series. It uses `date_trunc()` to group rows into one-minute buckets and `$__timeFilter()` to limit the results to the dashboard time range:
 
 ```sql
 SELECT
-  created_at AS time,
+  date_trunc('minute', created_at) AS time,
   count(*) AS orders
 FROM orders
 WHERE $__timeFilter(created_at)
@@ -104,17 +106,18 @@ GROUP BY time
 ORDER BY time
 ```
 
-### Aggregate into time buckets
+### Return multiple series
 
-This query groups rows into time buckets that match the dashboard interval:
+This query returns one series per `service` by grouping on an additional column alongside the time bucket:
 
 ```sql
 SELECT
-  $__timeGroup(created_at, $__interval) AS time,
+  date_trunc('minute', created_at) AS time,
+  service,
   avg(response_time) AS avg_response_time
 FROM requests
 WHERE $__timeFilter(created_at)
-GROUP BY time
+GROUP BY time, service
 ORDER BY time
 ```
 
