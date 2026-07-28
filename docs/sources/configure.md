@@ -81,14 +81,25 @@ The **Additional Settings** section contains optional configuration.
 ### Private data source connect
 
 {{< admonition type="note" >}}
-This feature is only available in Grafana Cloud.
+Private data source connect (PDC) is only available in Grafana Cloud.
 {{< /admonition >}}
 
-Use Private data source connect (PDC) to query a YugabyteDB instance that lives within a secured network, without opening that network to inbound traffic from Grafana Cloud. For more information about how PDC works, refer to [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/).
+Use private data source connect (PDC) to query a YugabyteDB instance within a secured network, without opening that network to inbound traffic from Grafana Cloud. For more information about how PDC works, refer to [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/). For steps to set up a connection, refer to [Configure Grafana private data source connect (PDC)](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/configure-pdc/).
 
-Use the **Private data source connect network** drop-down to select a configured PDC network where your YugabyteDB instance is available. Use **Manage private data source connect networks** to configure and manage your PDC networks. After you make changes, click **Save & test** to preserve them.
+The Yugabyte data source routes connections through PDC with the **Secure Socks Proxy Enabled** toggle in the **Additional Settings** section of the configuration page. Turn on this toggle to send the database connection through your PDC network or configured proxy, then click **Save & test**.
 
-On self-managed Grafana with the secure socks proxy enabled in the Grafana configuration, this setting instead appears as a **Secure Socks Proxy** toggle that routes the connection through the configured proxy.
+{{< admonition type="note" >}}
+The **Secure Socks Proxy Enabled** toggle only appears when the secure socks proxy is enabled for your Grafana instance. If the **Additional Settings** section is empty, the proxy isn't enabled, which is expected on a default installation. Direct connections don't require it.
+{{< /admonition >}}
+
+On Grafana Cloud, setting up PDC for your stack enables the toggle. On self-managed Grafana, enable the secure socks proxy in your Grafana configuration file, then restart Grafana:
+
+```ini
+[secure_socks_datasource_proxy]
+enabled = true
+```
+
+For the full set of proxy options, refer to [Configure Grafana](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/setup-grafana/configure-grafana/proxy/).
 
 ## Verify the connection
 

@@ -146,6 +146,19 @@ These errors occur when you use template variables with the data source.
 
 These issues occur when you query a YugabyteDB instance through Private data source connect (PDC) on Grafana Cloud.
 
+### The Secure Socks Proxy toggle isn't visible
+
+**Symptoms:**
+
+- The **Additional Settings** section on the configuration page is empty.
+- You can't find a PDC or **Secure Socks Proxy Enabled** option.
+
+**Solutions:**
+
+1. Confirm the secure socks proxy is enabled for your Grafana instance. The toggle only appears when it's enabled.
+1. On Grafana Cloud, confirm that [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/) is set up for your stack.
+1. On self-managed Grafana, enable the secure socks proxy in the Grafana configuration file, then restart Grafana. Refer to [Configure the Yugabyte data source](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/#private-data-source-connect).
+
 ### Connection fails only when a PDC network is selected
 
 **Solutions:**
