@@ -18,7 +18,7 @@ labels:
 menuTitle: Configure
 title: Configure the Yugabyte data source
 weight: 20
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Configure the Yugabyte data source
@@ -104,6 +104,10 @@ For the full set of proxy options, refer to [Configure Grafana](https://grafana.
 ## Verify the connection
 
 Click **Save & test** to verify the connection. When the connection succeeds, Grafana displays a **Data source is working** message. If the test fails, refer to [Troubleshoot Yugabyte data source issues](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/troubleshooting/).
+
+## Query caching
+
+On Grafana Cloud and Grafana Enterprise, you can use the **Cache** tab on the data source page to enable query caching, which reduces load on YugabyteDB by reusing recent query results. For more information, refer to [Query and resource caching](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/administration/data-source-management/#query-and-resource-caching).
 
 ## Provision the data source
 

@@ -18,7 +18,7 @@ labels:
 menuTitle: Query editor
 title: Yugabyte query editor
 weight: 30
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Yugabyte query editor

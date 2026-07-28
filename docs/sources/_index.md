@@ -17,7 +17,7 @@ labels:
 menuTitle: Yugabyte
 title: Yugabyte data source
 weight: 10
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Yugabyte data source
@@ -75,6 +75,7 @@ After you configure the data source, you can:
 The Yugabyte data source has the following known limitations:
 
 - Grafana ad hoc filters aren't supported.
+- The `$__timeGroup` macro isn't compatible with YugabyteDB. To group results into time buckets, use a native function such as `date_trunc()`. Refer to [Macros](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/query-editor/#macros) for details.
 - The data source doesn't provide TLS/SSL configuration options in the UI. It connects with the `libpq` setting `sslmode=allow`, which uses TLS when the server requires it but doesn't verify the server certificate.
 
 ## Plugin updates

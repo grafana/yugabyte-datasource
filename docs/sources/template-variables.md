@@ -18,7 +18,7 @@ labels:
 menuTitle: Template variables
 title: Yugabyte template variables
 weight: 40
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Yugabyte template variables

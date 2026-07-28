@@ -18,7 +18,7 @@ labels:
 menuTitle: Alerting
 title: Yugabyte alerting
 weight: 60
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Yugabyte alerting

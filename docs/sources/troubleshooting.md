@@ -18,7 +18,7 @@ labels:
 menuTitle: Troubleshooting
 title: Troubleshoot Yugabyte data source issues
 weight: 70
-review_date: "2026-07-24"
+review_date: "2026-07-28"
 ---
 
 # Troubleshoot Yugabyte data source issues
@@ -118,6 +118,21 @@ These errors occur when you run a query against the data source.
 1. Set the query **Format** to **Time series**.
 1. Return a time-ordered column of `time` or `timestamp` type, aliased `AS time`.
 1. Return at least one numeric column, and sort the results by the time column in ascending order.
+
+### Timestamps appear shifted
+
+**Symptoms:**
+
+- Time-series values appear offset from the expected time by a fixed number of hours.
+- Annotations or events display at different times than they occurred.
+
+The data source reads `timestamp` columns, which don't carry time zone information, as UTC. If your application stores local wall-clock times in `timestamp` columns, Grafana treats those values as UTC and displays them shifted by your time zone offset.
+
+**Solutions:**
+
+1. Store timestamps in UTC, or use the `timestamptz` type so values include time zone information.
+1. Convert local timestamps in the query, for example `created_at AT TIME ZONE 'America/New_York' AS time`.
+1. Confirm the dashboard time zone in the time range options is set to the zone you expect.
 
 ## Template variable errors
 
