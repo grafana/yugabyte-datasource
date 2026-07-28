@@ -60,7 +60,7 @@ Grafana determines variable values from the columns your query returns:
 
 | Columns returned | Behavior |
 |------------------|----------|
-| One column | Each value is used as both the display text and the variable value. |
+| One column | Grafana uses each value as both the display text and the variable value. |
 | A column named `text` and a column named `value` | The `text` column provides the display text and the `value` column provides the substituted value. |
 
 Grafana matches the `text` and `value` columns by name, and both must be string columns. Cast numeric columns to text with `::text`, for example `id::text AS value`.
@@ -85,7 +85,7 @@ The variable drop-down displays `name` values, but the selected `id` is substitu
 
 ## Use variables in queries
 
-Reference template variables in your SQL queries using the `$variable` or `${variable}` syntax. Single-value string variables are substituted as-is, so include quotes around string values in your query:
+Reference template variables in your SQL queries using the `$variable` or `${variable}` syntax. Grafana substitutes single-value string variables as-is, so include quotes around string values in your query:
 
 ```sql
 SELECT created_at AS time, count(*) AS orders

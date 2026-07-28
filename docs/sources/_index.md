@@ -82,7 +82,7 @@ The Yugabyte data source has the following known limitations:
 
 Always keep your plugin version up to date so you have access to recent features and fixes. Navigate to **Administration** > **Plugins and data** > **Plugins** to check for updates. Grafana recommends keeping Grafana up to date, and this applies to plugins as well.
 
-On Grafana Cloud, the plugin is managed by Grafana and updates automatically. On self-managed Grafana, update the plugin from the plugin catalog or with the `grafana cli plugins update grafana-yugabyte-datasource` command.
+On Grafana Cloud, Grafana manages the plugin and updates it automatically. On self-managed Grafana, update the plugin from the plugin catalog or with the `grafana cli plugins update grafana-yugabyte-datasource` command.
 
 ## Related resources
 

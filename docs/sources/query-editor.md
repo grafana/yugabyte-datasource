@@ -44,7 +44,7 @@ The builder toolbar includes a **Format** drop-down and **Filter**, **Group**, *
 
 | Option | Description |
 |--------|-------------|
-| **Table** | The table to query. The list is populated from the base tables in the configured database. |
+| **Table** | The table to query. Grafana populates the list from the base tables in the configured database. |
 | **Column** | The columns to return. Click **+** to add more columns. |
 | **Aggregation** | Optional. An aggregation function to apply to the column: `AVG`, `COUNT`, `MAX`, `MIN`, or `SUM`. |
 | **Filter by column value** | Optional. One or more `WHERE` conditions to limit the rows returned. Enable the **Filter** toggle to show this section. |
