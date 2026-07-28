@@ -140,34 +140,8 @@ Use the query editor to build dashboards for scenarios such as:
 - **Business metrics:** Visualize orders, sign-ups, or revenue aggregated by time buckets.
 - **Operational reporting:** Build table panels that list recent records, such as the most recent orders or active users.
 
-## Annotations
-
-The Yugabyte data source supports annotations, which overlay event markers on time-series panels. It uses Grafana's standard annotation query format, so your annotation query must return specific columns.
-
-To add an annotation query, open **Dashboard settings** > **Annotations**, click **Add annotation query**, and select the **Yugabyte** data source. For general information, refer to [Annotate visualizations](https://grafana.com/docs/grafana/<GRAFANA_VERSION>/dashboards/build-dashboards/annotate-visualizations/).
-
-The following table describes the fields Grafana recognizes:
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `time` | Yes | A timestamp column that determines when the annotation appears on the timeline. |
-| `timeEnd` | No | A timestamp column for the end of a range annotation. |
-| `text` | No | A string column with the annotation body text shown on hover. |
-| `tags` | No | A string column with comma-separated tags for filtering annotations. |
-
-The following query marks deployment events on a dashboard:
-
-```sql
-SELECT
-  deployed_at AS time,
-  description AS text,
-  environment AS tags
-FROM deployments
-WHERE $__timeFilter(deployed_at)
-ORDER BY time
-```
-
 ## Next steps
 
 - [Use template variables](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/template-variables/) to build dynamic dashboards.
+- [Add annotations](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/annotations/) to overlay events on your panels.
 - [Set up alerting](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/alerting/) on your YugabyteDB data.

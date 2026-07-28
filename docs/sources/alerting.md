@@ -17,7 +17,7 @@ labels:
     - oss
 menuTitle: Alerting
 title: Yugabyte alerting
-weight: 50
+weight: 60
 review_date: "2026-07-24"
 ---
 

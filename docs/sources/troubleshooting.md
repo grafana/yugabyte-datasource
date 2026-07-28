@@ -17,7 +17,7 @@ labels:
     - oss
 menuTitle: Troubleshooting
 title: Troubleshoot Yugabyte data source issues
-weight: 60
+weight: 70
 review_date: "2026-07-24"
 ---
 
@@ -44,7 +44,7 @@ These errors occur when Grafana can't reach your YugabyteDB instance.
 | Firewall blocks the connection | Allow outbound access from Grafana to the YugabyteDB host and port. |
 | Private network | For Grafana Cloud, configure [Private data source connect](https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/) and select a PDC network in the data source's [Private data source connect](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/#private-data-source-connect) settings. |
 
-### "missing port in address"
+### "Missing port in address"
 
 **Symptoms:**
 
@@ -59,7 +59,7 @@ These errors occur when Grafana can't reach your YugabyteDB instance.
 
 These errors occur when the database credentials are invalid or lack the required permissions.
 
-### "password authentication failed"
+### "Password authentication failed"
 
 **Symptoms:**
 
@@ -72,7 +72,7 @@ These errors occur when the database credentials are invalid or lack the require
 |-------|----------|
 | Incorrect username or password | Verify the **Username** and re-enter the **Password** on the configuration page, then click **Save & test**. |
 | User lacks database access | Grant the database user permission to connect to the target database and read the required tables. |
-| Wrong database | Confirm the **Database** setting matches an existing database the user can access. |
+| Wrong database | Confirm the **Database** setting matches a database the user can access. |
 
 ## Query errors
 
@@ -173,7 +173,7 @@ To capture detailed error information for troubleshooting:
 If you've tried the solutions in this document and still encounter issues:
 
 1. Check the [Grafana community forums](https://community.grafana.com/) for similar issues.
-1. Review the [Yugabyte data source plugin issues on GitHub](https://github.com/grafana/yugabyte-datasource/issues) for known bugs, and open a new issue if needed.
+1. Review the [Yugabyte data source plugin issues on GitHub](https://github.com/grafana/yugabyte-datasource/issues) for known bugs, and open an issue if needed.
 1. Consult the [YugabyteDB documentation](https://docs.yugabyte.com/) for database-specific guidance.
 1. When you report an issue, include:
    - Your Grafana version and plugin version.

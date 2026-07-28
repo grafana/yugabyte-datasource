@@ -58,6 +58,7 @@ The following pages help you get started with the Yugabyte data source:
 - [Configure the Yugabyte data source](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/configure/)
 - [Yugabyte query editor](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/query-editor/)
 - [Template variables](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/template-variables/)
+- [Annotations](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/annotations/)
 - [Alerting](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/alerting/)
 - [Troubleshooting](https://grafana.com/docs/plugins/grafana-yugabyte-datasource/latest/troubleshooting/)
 
@@ -74,11 +75,11 @@ After you configure the data source, you can:
 The Yugabyte data source has the following known limitations:
 
 - Grafana ad hoc filters aren't supported.
-- The data source doesn't provide TLS/SSL configuration options in the UI. It connects using the libpq `sslmode=allow` setting, which uses TLS when the server requires it but doesn't verify the server certificate.
+- The data source doesn't provide TLS/SSL configuration options in the UI. It connects with the `libpq` setting `sslmode=allow`, which uses TLS when the server requires it but doesn't verify the server certificate.
 
 ## Plugin updates
 
-Always keep your plugin version up to date so you have access to the latest features and fixes. Navigate to **Administration** > **Plugins and data** > **Plugins** to check for updates. Grafana recommends upgrading to the latest Grafana version, and this applies to plugins as well.
+Always keep your plugin version up to date so you have access to recent features and fixes. Navigate to **Administration** > **Plugins and data** > **Plugins** to check for updates. Grafana recommends keeping Grafana up to date, and this applies to plugins as well.
 
 On Grafana Cloud, the plugin is managed by Grafana and updates automatically. On self-managed Grafana, update the plugin from the plugin catalog or with the `grafana cli plugins update grafana-yugabyte-datasource` command.
 

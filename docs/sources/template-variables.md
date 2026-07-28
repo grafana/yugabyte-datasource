@@ -103,7 +103,7 @@ SELECT * FROM orders WHERE total > $threshold
 
 ## Chained variables
 
-You can build chained, or dependent, variables where one variable's query filters on the value selected in another variable. Because variable queries also expand template variables, you can reference an existing variable inside a query variable's SQL.
+You can build chained, or dependent, variables where one variable's query filters on the value selected in another variable. Because variable queries also expand template variables, you can reference another variable inside a query variable's SQL.
 
 For example, if you have a `region` variable, create a dependent `city` variable that only lists cities in the selected region:
 
