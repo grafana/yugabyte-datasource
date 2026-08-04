@@ -24,8 +24,6 @@ review_date: "2026-07-28"
 
 The Yugabyte data source plugin lets you connect Grafana to [YugabyteDB](https://www.yugabyte.com/) so you can query and visualize your data. The plugin connects to the YSQL (PostgreSQL-compatible) API and provides a visual query builder and a raw SQL editor with syntax highlighting and autocomplete.
 
-{{< docs/public-preview product="Grafana **Yugabyte** data source plugin" >}}
-
 ## Supported features
 
 The following table lists the features supported by the Yugabyte data source:

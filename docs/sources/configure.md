@@ -72,7 +72,9 @@ In the **Authentication** section, provide the credentials Grafana uses to authe
 
 ### TLS and SSL
 
-The Yugabyte data source doesn't provide TLS/SSL configuration options in the UI. It connects using the `sslmode=allow` connection setting. With this setting, the connection uses TLS when the server requires it, but Grafana doesn't verify the server's certificate. If your YugabyteDB deployment enforces certificate verification, connect through [Private data source connect](#private-data-source-connect) or a network tunnel that terminates TLS.
+The Yugabyte data source doesn't provide TLS/SSL configuration options in the UI. It connects using the `sslmode=allow` connection setting. With this setting, the connection uses TLS when the server requires it, but Grafana doesn't verify the server's certificate and can't present a client certificate. If your YugabyteDB deployment requires verified TLS or client certificates, place a TLS-terminating proxy in front of YugabyteDB and connect Grafana to the proxy.
+
+[Private data source connect](#private-data-source-connect) encrypts traffic between Grafana Cloud and your private network, but it doesn't change how the plugin negotiates TLS with the database.
 
 ## Additional settings
 
