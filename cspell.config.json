@@ -22,12 +22,20 @@
   ],
   "words": [
     "datasource",
+    "datepart",
     "instancemgmt",
+    "jsonencode",
+    "libpq",
+    "PDC",
     "sqlds",
     "sqlutil",
     "sslmode",
+    "timestamptz",
+    "trunc",
     "uplot",
+    "YSQL",
     "yugabyte",
+    "yugabytedb",
     "stdlib"
   ]
 }
