@@ -7,6 +7,30 @@ services:
       - ./provisioning/yugabyte:/var/ybinit
     ports:
       - 5433:5433
+    healthcheck:
+      # YSQL binds to the container hostname, not 127.0.0.1.
+      test: ['CMD-SHELL', 'bin/ysqlsh -h yugabyte -p 5433 -U yugabyte -c "SELECT 1"']
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 90s
+
+  yb-loader:
+    image: yugabytedb/yugabyte:latest@sha256:3920d4d60a17abd0b6e13d8342c19922e22115080229a96df3074019c988c5e2
+    container_name: yugabyte-loader
+    depends_on:
+      yugabyte:
+        condition: service_healthy
+    volumes:
+      - ./tests/e2e/fixtures:/data:ro
+    entrypoint:
+      - bash
+      - -c
+      - |
+        set -e
+        bin/ysqlsh -h yugabyte -p 5433 -U yugabyte -d yugabyte -f /data/seed.sql
+    restart: 'no'
+
   grafana:
     build:
       args:
@@ -14,3 +38,8 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    depends_on:
+      yugabyte:
+        condition: service_healthy
+      yb-loader:
+        condition: service_completed_successfully
