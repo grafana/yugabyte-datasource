@@ -1,6 +1,5 @@
 import { defineConfig } from 'eslint/config';
 import baseConfig from './.config/eslint.config.mjs';
-import prettier from 'eslint-plugin-prettier';
 
 export default defineConfig([
   {
@@ -12,6 +11,11 @@ export default defineConfig([
       '**/yarn-error.log*',
       '**/.pnpm-debug.log*',
       '**/node_modules/',
+      '.yarn/cache',
+      '.yarn/unplugged',
+      '.yarn/build-state.yml',
+      '.yarn/install-state.gz',
+      '**/.pnp.*',
       '**/pids',
       '**/*.pid',
       '**/*.seed',
@@ -21,9 +25,10 @@ export default defineConfig([
       '**/dist/',
       '**/artifacts/',
       '**/work/',
-      '**/test-results/',
-      '**/playwright-report/',
-      '**/blob-report/',
+      '**/ci/',
+      'test-results/',
+      'playwright-report/',
+      'blob-report/',
       'playwright/.cache/',
       'playwright/.auth/',
       '**/.idea',
@@ -31,14 +36,4 @@ export default defineConfig([
     ],
   },
   ...baseConfig,
-  {
-    plugins: {
-      prettier: prettier,
-    },
-
-    rules: {
-      'react-hooks/exhaustive-deps': 'error',
-      'prettier/prettier': 'error',
-    },
-  },
 ]);
