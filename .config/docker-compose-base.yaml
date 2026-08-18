@@ -1,7 +1,7 @@
 services:
   grafana:
     user: root
-    container_name: 'grafana-yugabyteupdate-datasource'
+    container_name: 'grafana-yugabyte-datasource'
 
     build:
       context: .
