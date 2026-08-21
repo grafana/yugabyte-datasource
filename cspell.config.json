@@ -36,6 +36,7 @@
     "YSQL",
     "yugabyte",
     "yugabytedb",
-    "stdlib"
+    "stdlib",
+    "combobox"
   ]
 }
