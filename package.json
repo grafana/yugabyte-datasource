@@ -19,7 +19,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "8.0.1",
-    "@changesets/cli": "2.31.0",
+    "@changesets/cli": "3.0.1",
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.9.2",
     "@grafana/sign-plugin": "3.3.3",
