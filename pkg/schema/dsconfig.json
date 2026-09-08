@@ -1,0 +1,97 @@
+{
+    "$schema": "https://raw.githubusercontent.com/grafana/dsconfig/refs/heads/main/dsconfig/schema.json",
+    "schemaVersion": "v1",
+    "pluginType": "grafana-yugabyte-datasource",
+    "pluginName": "Yugabyte",
+    "docURL": "https://grafana.com/docs/grafana/latest/datasources/yugabyte/",
+    "fields": [
+        {
+            "id": "root.url",
+            "key": "url",
+            "label": "Host URL",
+            "description": "YugabyteDB host and port.",
+            "valueType": "string",
+            "target": "root",
+            "required": true,
+            "ui": {
+                "component": "input",
+                "placeholder": "localhost:5433"
+            }
+        },
+        {
+            "id": "jsonData.database",
+            "key": "database",
+            "label": "Database",
+            "description": "YugabyteDB database name.",
+            "valueType": "string",
+            "target": "jsonData",
+            "required": true,
+            "ui": {
+                "component": "input",
+                "placeholder": "yb_demo"
+            }
+        },
+        {
+            "id": "root.user",
+            "key": "user",
+            "label": "Username",
+            "description": "Database username.",
+            "valueType": "string",
+            "target": "root",
+            "required": true,
+            "ui": {
+                "component": "input",
+                "placeholder": "yugabyte"
+            }
+        },
+        {
+            "id": "secureJsonData.password",
+            "key": "password",
+            "label": "Password",
+            "description": "Database password.",
+            "valueType": "string",
+            "semanticType": "password",
+            "target": "secureJsonData",
+            "ui": {
+                "component": "input",
+                "placeholder": "********"
+            }
+        },
+        {
+            "id": "jsonData.enableSecureSocksProxy",
+            "key": "enableSecureSocksProxy",
+            "label": "Secure Socks Proxy",
+            "description": "Enable proxying the datasource connection through the secure socks proxy.",
+            "valueType": "boolean",
+            "target": "jsonData",
+            "ui": {
+                "component": "switch"
+            }
+        }
+    ],
+    "groups": [
+        {
+            "id": "connection",
+            "title": "Connection",
+            "fieldRefs": [
+                "root.url",
+                "jsonData.database"
+            ]
+        },
+        {
+            "id": "auth",
+            "title": "Authentication",
+            "fieldRefs": [
+                "root.user",
+                "secureJsonData.password"
+            ]
+        },
+        {
+            "id": "advanced",
+            "title": "Additional Settings",
+            "fieldRefs": [
+                "jsonData.enableSecureSocksProxy"
+            ]
+        }
+    ]
+}

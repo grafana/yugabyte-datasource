@@ -10,6 +10,7 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/grafana/grafana-plugin-sdk-go/data/sqlutil"
 	"github.com/grafana/sqlds/v5"
+	"github.com/grafana/yugabyte/pkg/models"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/stdlib"
@@ -18,12 +19,12 @@ import (
 type Datasource struct{}
 
 func (d *Datasource) Connect(ctx context.Context, config backend.DataSourceInstanceSettings, _ json.RawMessage) (*sql.DB, error) {
-	settings, err := LoadSettings(config)
+	settings, err := models.LoadSettings(config)
 	if err != nil {
 		return nil, err
 	}
 
-	connection, err := BuildConnectionString(settings)
+	connection, err := models.BuildConnectionString(settings)
 	if err != nil {
 		return nil, err
 	}

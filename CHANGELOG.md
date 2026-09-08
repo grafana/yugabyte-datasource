@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.3
+
+- Chore: Added plugin schema and artifacts
+
 ## 2.1.2
 
 ⚙️ Updated frontend & backend dependencies

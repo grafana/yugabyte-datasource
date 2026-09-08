@@ -4,13 +4,14 @@ import (
 	"testing"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
+	"github.com/grafana/yugabyte/pkg/models"
 	"github.com/stretchr/testify/assert"
 )
 
 type LoadSettingsTestCase struct {
 	name        string
 	instance    backend.DataSourceInstanceSettings
-	expected    Settings
+	expected    models.Settings
 	shouldError bool
 }
 
@@ -24,7 +25,7 @@ func TestLoadSettings(t *testing.T) {
 				DecryptedSecureJSONData: map[string]string{"password": "*****"},
 				JSONData:                []byte(`{"database": "yb_demo"}`),
 			},
-			expected: Settings{
+			expected: models.Settings{
 				Connection: Connection{Url: "localhost:5433", Host: "localhost", Port: "5433"},
 				User:       "admin",
 				Password:   "*****",
@@ -40,7 +41,7 @@ func TestLoadSettings(t *testing.T) {
 				DecryptedSecureJSONData: map[string]string{"password": "*****"},
 				JSONData:                []byte(`{"database": "yb_demo"}`),
 			},
-			expected:    Settings{},
+			expected:    models.Settings{},
 			shouldError: true,
 		},
 		{
@@ -51,14 +52,14 @@ func TestLoadSettings(t *testing.T) {
 				DecryptedSecureJSONData: map[string]string{"password": "*****"},
 				JSONData:                []byte(`{invalid json}`),
 			},
-			expected:    Settings{},
+			expected:    models.Settings{},
 			shouldError: true,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			settings, err := LoadSettings(tt.instance)
+			settings, err := models.LoadSettings(tt.instance)
 			if tt.shouldError {
 				assert.Error(t, err)
 			} else {
@@ -70,7 +71,7 @@ func TestLoadSettings(t *testing.T) {
 }
 
 func TestBuildConnectionString(t *testing.T) {
-	settings := Settings{
+	settings := models.Settings{
 		Connection: Connection{
 			Url:  "localhost:5433",
 			Host: "localhost",
@@ -82,7 +83,7 @@ func TestBuildConnectionString(t *testing.T) {
 	}
 
 	expected := "host='localhost' port='5433' user='admin' password='*****' database='yb_demo' sslmode='allow'"
-	str, err := BuildConnectionString(settings)
+	str, err := models.BuildConnectionString(settings)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, str)
 }

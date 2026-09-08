@@ -13,7 +13,8 @@
     "package.json",
     "renovate.json",
     "yarn.lock",
-    "docker-compose*.{yml,yaml}"
+    "docker-compose*.{yml,yaml}",
+    "**/*_test.go"
   ],
   "ignoreRegExpList": [
     "import\\s*\\((.|[\r\n])*?\\)",
@@ -21,7 +22,10 @@
   ],
   "words": [
     "datasource",
+    "dsconfig",
+    "dsschema",
     "instancemgmt",
+    "pluginschema",
     "sqlds",
     "sqlutil",
     "sslmode",

@@ -1,0 +1,65 @@
+{
+  "spec": {
+    "ArbitraryKeys": {},
+    "SchemaProps": {
+      "type": "object",
+      "required": [
+        "url",
+        "user"
+      ],
+      "properties": {
+        "jsonData": {
+          "ArbitraryKeys": {},
+          "SchemaProps": {
+            "type": "object",
+            "required": [
+              "database"
+            ],
+            "properties": {
+              "database": {
+                "ArbitraryKeys": {},
+                "SchemaProps": {
+                  "description": "YugabyteDB database name.",
+                  "type": "string"
+                },
+                "SwaggerSchemaProps": {}
+              },
+              "enableSecureSocksProxy": {
+                "ArbitraryKeys": {},
+                "SchemaProps": {
+                  "description": "Enable proxying the datasource connection through the secure socks proxy.",
+                  "type": "boolean"
+                },
+                "SwaggerSchemaProps": {}
+              }
+            }
+          },
+          "SwaggerSchemaProps": {}
+        },
+        "url": {
+          "ArbitraryKeys": {},
+          "SchemaProps": {
+            "description": "YugabyteDB host and port.",
+            "type": "string"
+          },
+          "SwaggerSchemaProps": {}
+        },
+        "user": {
+          "ArbitraryKeys": {},
+          "SchemaProps": {
+            "description": "Database username.",
+            "type": "string"
+          },
+          "SwaggerSchemaProps": {}
+        }
+      }
+    },
+    "SwaggerSchemaProps": {}
+  },
+  "secureValues": [
+    {
+      "key": "password",
+      "description": "Database password."
+    }
+  ]
+}
