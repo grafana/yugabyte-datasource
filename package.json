@@ -90,7 +90,7 @@
     "minimatch": "10.2.6",
     "nanoid": "6.0.1"
   },
-  "packageManager": "npm@11.19.1",
+  "packageManager": "npm@12.0.2",
   "engines": {
     "node": ">=24",
     "npm": ">=11.16.0"
