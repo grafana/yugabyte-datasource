@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.3
+
+🐛 Enable annotations in plugin metadata so the data source appears in the annotation query editor
+
+⚙️ Switch package manager from **yarn** to **npm**
+
+⚙️ Updated frontend & backend dependencies
+
 ## 2.1.2
 
 ⚙️ Updated frontend & backend dependencies
