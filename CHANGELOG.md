@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.4
+
+⚙️ Updated frontend dependencies to resolve CVE-2026-102990 (basic-ftp), CVE-2026-102278 and CVE-2026-102276 (brace-expansion), and removed stale dependency overrides
+
 ## 2.1.3
 
 🐛 Enable annotations in plugin metadata so the data source appears in the annotation query editor
