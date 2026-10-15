@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.5
+
+⚙️ Updated frontend & backend dependencies to resolve various CVEs
+
 ## 2.1.4
 
 ⚙️ Updated frontend dependencies to resolve CVE-2026-102990 (basic-ftp), CVE-2026-102278 and CVE-2026-102276 (brace-expansion), and removed stale dependency overrides
