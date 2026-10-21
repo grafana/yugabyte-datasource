@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.6
+
+### Patch Changes
+
+⚙️ Chore: update Go to 1.27.3
+
 ## 2.1.5
 
 ⚙️ Updated frontend & backend dependencies to resolve various CVEs
