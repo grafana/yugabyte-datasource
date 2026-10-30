@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.8
+
+### Patch Changes
+
+⚙️ Chore: dependency updates
+🐛 Fix a connection freeze between Grafana and the plugin under heavy query load by updating google.golang.org/grpc to v1.85.0 ([grpc/grpc-go#9330](https://github.com/grpc/grpc-go/issues/9330))
+
 ## 2.1.7
 
 ⚙️ Updated backend dependencies
