@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.1.8
+
+### Patch Changes
+
+⚙️ Chore: dependency updates
+🐛 Fix a connection freeze between Grafana and the plugin under heavy query load by updating google.golang.org/grpc to v1.85.0 ([grpc/grpc-go#9330](https://github.com/grpc/grpc-go/issues/9330))
+
+## 2.1.7
+
+⚙️ Updated backend dependencies
+
+## 2.1.6
+
+### Patch Changes
+
+⚙️ Chore: update Go to 1.27.3
+
+## 2.1.5
+
+⚙️ Updated frontend & backend dependencies to resolve various CVEs
+
+## 2.1.4
+
+⚙️ Updated frontend dependencies to resolve CVE-2026-102990 (basic-ftp), CVE-2026-102278 and CVE-2026-102276 (brace-expansion), and removed stale dependency overrides
+
 ## 2.1.3
 
 🐛 Enable annotations in plugin metadata so the data source appears in the annotation query editor
