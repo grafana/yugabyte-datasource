@@ -3,11 +3,11 @@ module github.com/grafana/yugabyte
 go 1.27.3
 
 require (
-	github.com/grafana/grafana-plugin-sdk-go v0.297.0
-	github.com/grafana/sqlds/v5 v5.3.2
-	github.com/jackc/pgx/v5 v5.11.0
+	github.com/grafana/grafana-plugin-sdk-go v0.298.0
+	github.com/grafana/sqlds/v5 v5.4.0
+	github.com/jackc/pgx/v5 v5.12.0
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/net v0.61.0
+	golang.org/x/net v0.62.0
 )
 
 require (
@@ -72,7 +72,7 @@ require (
 	github.com/prometheus/client_golang v1.25.0 // indirect
 	github.com/prometheus/client_model v0.6.3 // indirect
 	github.com/prometheus/common v0.72.1 // indirect
-	github.com/prometheus/procfs v0.22.0 // indirect
+	github.com/prometheus/procfs v0.23.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/unknwon/bra v0.0.0-20200517080246-1e3013ecaff8 // indirect
 	github.com/unknwon/com v1.0.1 // indirect
