@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.9
+
+### Patch Changes
+
+⚙️ Chore: Update dev dependencies ip-address and fast-uri to fix CVE-2026-111997, CVE-2026-110306 and CVE-2026-110180
+🐛 Fix security vulnerabilities in golang.org/x/net by updating to v0.62.0 (CVE-2026-78661, CVE-2026-97045)
+⚙️ Chore: Update frontend dependencies
+
 ## 2.1.8
 
 ### Patch Changes
